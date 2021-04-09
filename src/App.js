@@ -47,9 +47,9 @@ render(){
         <Route path='/users/userdeatails/:email' component = {UserDetails}/>
         <Route path='/users/useredit/:email' component = {UserEdit}/>
         <Route exact path='/classifieds' component = {Classifieds}/>
-        <Route path='/classifieds/' component = {classifiedDetails}/>
+        <Route path='/classifieds/details/:id' component = {classifiedDetails}/>
         <Route path='/classifieds/add' component = {classifiedAdd}/>
-        <Route path='/classifieds/edit' component = {classifiedEdit}/>
+        <Route path='/classifieds/edit/:id' component = {classifiedEdit}/>
      
 
 

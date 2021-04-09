@@ -38,9 +38,12 @@ class Signup extends Component {
   handleSubmit = async (event) => {
     // const { email, cpf, username, password, name, lastName, cep, street, streetNumber, streetComplement, neighborhood, city, state, phone,
     //   mobile, birthDate, profession, imgURL, score, lastZipCodeUpdate, status } = this.state;
-    event.preventDefault();
+    try {
+      event.preventDefault();
     const user = await api.signup(this.state);
-      // console.log("registrado");
+    }
+  catch (error) {
+  }
   }
 
   render() {

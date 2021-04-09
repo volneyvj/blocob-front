@@ -3,22 +3,29 @@ import Button from '../components/Button';
 import api from '../utils/api.util'
 import { Link } from 'react-router-dom'
 
+// console.log(Window.localStorage);
+
 class Users extends Component {
   state = {
     users: [],
     neighborhood: '',
+    // userid: localStorage.getItem("user"),
   }
   
-  // console.log (localStorage.api.user.id)
-
 
   loadUsers = async () => {
     // const nomeBanana = this.props.match.params.banana
     // console.log(nomeBanana)
-    const users = await api.getAllUsers()
+   try {
+
+   const users = await api.getAllUsers()
     this.setState({
       users: users
     })
+  }
+  catch (error) {
+    console.log(error);
+  }
   } 
 
   componentDidMount = () => {

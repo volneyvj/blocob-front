@@ -12,7 +12,7 @@ class NavBar extends Component {
           </div>
 
           <Link Link to='/users'><Button name = 'Users' /></Link>
-          <Link Link to='/classified'><Button name = 'Classifieds' /></Link>
+          <Link Link to='/classifieds'><Button name = 'Classifieds' /></Link>
           <Link Link to='/comments'><Button name = 'Comments' /></Link>
           <Link Link to='/login/'><Button name = 'Login' /></Link>
 
