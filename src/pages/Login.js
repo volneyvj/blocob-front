@@ -29,6 +29,17 @@ class Login extends Component {
     }
   }
 
+  handleSubmit2 = async (event) => {
+    event.preventDefault();
+    try {
+      await api.logout();
+      this.props.history.push('/')
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   render() {
     return (
@@ -41,6 +52,7 @@ class Login extends Component {
           <input type='password' name='password' value={this.state.password} onChange={this.handleInput}/>
           <button type='submit'onClick={this.handleSubmit}>LOGIN</button>
         </form>
+        <button type='submit'onClick={this.handleSubmit2}>LogOut</button>
       </div>
     )
   }

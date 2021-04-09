@@ -11,35 +11,45 @@ class Api {
     this.api.interceptors.request.use(
       config => {
         const user = localStorage.getItem('user');
+        // console.log(user)
         if(user) {
           config.headers = {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user}`
           };
         };
+        // console.log(config)
         return config;
+      
       },
       error => console.log(error)
     )
 
-    this.api.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        // console.log(error.statusCode)
-        localStorage.removeItem('token');
-        window.location = "/login"
-      }
-    )
+    // this.api.interceptors.response.use(
+    //   (response) => response,
+    //   (error) => {
+    //     // console.log(error.statusCode)
+    //     localStorage.removeItem('token');
+    //     window.location = "/login"
+    //   }
+    // )
   }
 
-
+ logout = () => {
+  window.localStorage.clear();
+  console.log("logout efetuado")
+ }
+ 
   // -----  /User ROUTES   -----
   login = async (payload) => {
  
     try {
       const { data } = await this.api.post('/user/login', payload);
       const { id, token } = data;
-      localStorage.setItem('user', {'id': id, 'token': token});
-      console.log(data);
+      localStorage.setItem('user', id );
+      localStorage.setItem('token', token);
+      // const storageObject ={id: data.id, token: data.token};
+      // localStorage.setItem('user', JSON.stringify(storageObject));
+      // console.log(data);
     } catch (error) {
       console.error(error);
       throw new Error(error)
@@ -74,7 +84,6 @@ class Api {
     // console.log(payload)
     try {
       const { data } = await this.api.post('/user/usersn', payload)
-      console.log(`Esse eh a data: ${data}`)
       return data
     }catch(error){
       throw new Error(error);
@@ -125,7 +134,8 @@ class Api {
     }
   }
 
- getSortedClassifieds = async (payload) => {
+  getSortedClassifieds = async (payload) => {
+    console.log({payload})
     try {
       const { data } = await this.api.post('/classified/list/sort', payload)
       return data
@@ -147,7 +157,7 @@ class Api {
 
   getClassifiedsDetails = async (id) => {
     try {
-      const { data } = await this.api.get('/classified/${id}')
+      const { data } = await this.api.get(`/classified/${id}`)
       return data
     }catch(error){
       throw new Error(error);
@@ -162,10 +172,13 @@ class Api {
       throw new Error(error);
     }
   }
+
   
   editClassified = async (payload) => {
+    
     try {
       const { data } = await this.api.post('/classified/edit', payload)
+     console.log(data)
       return data
     }catch(error){
       throw new Error(error);
@@ -195,8 +208,9 @@ class Api {
 
 
   getComments = async (payload) => {
+    // console.log(`ESTAMOS FALANDO DESSE: ${payload}`)
     try {
-      const { data } = await this.api.post('/comment/list', payload)
+      const { data } = await this.api.post('/comment/list', {payload})
       return data
     }catch(error){
       throw new Error(error);
@@ -205,6 +219,7 @@ class Api {
 
 
   addComment = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post('/comment/add', payload)
       return data

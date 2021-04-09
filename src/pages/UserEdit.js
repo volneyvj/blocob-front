@@ -84,7 +84,7 @@ class UserEdit extends Component {
       <div>
       <h1> edit USER </h1>
         <form>
-        <input name="id" type="hidden" value={this.state.id} onChange={this.handleInput}/>
+        <input name="id" type="hidden" value={this.state.id}/>
           <label>e-mail</label>
           <input name="email" type="text" value={this.state.email} onChange={this.handleInput}/>
           <label>Password</label>
