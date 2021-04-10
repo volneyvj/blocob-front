@@ -39,7 +39,12 @@ class Api {
   console.log("logout efetuado")
  }
  
+
+
+
   // -----  /User ROUTES   -----
+
+
   login = async (payload) => {
  
     try {
@@ -47,9 +52,6 @@ class Api {
       const { id, token } = data;
       localStorage.setItem('user', id );
       localStorage.setItem('token', token);
-      // const storageObject ={id: data.id, token: data.token};
-      // localStorage.setItem('user', JSON.stringify(storageObject));
-      // console.log(data);
     } catch (error) {
       console.error(error);
       throw new Error(error)
@@ -60,11 +62,12 @@ class Api {
   signup = async (payload) => {
     try {
       const { data } = await this.api.post('/user/signup', payload);
-      const { token } = data;
+      const { id, token } = data;
+      localStorage.setItem('user', id );
       localStorage.setItem('token', token);
     } catch (error) {
       console.error(error);
-      // throw new Error(error)
+      throw new Error(error)
     }
   }
 
@@ -204,8 +207,8 @@ class Api {
   }
 
 
-  // -- Coment ROUTES -------
 
+  // -- Coment ROUTES -------
 
   getComments = async (payload) => {
     // console.log(`ESTAMOS FALANDO DESSE: ${payload}`)
