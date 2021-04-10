@@ -20,11 +20,11 @@ class Login extends Component {
     try {
       await api.login(this.state);
       this.props.handleLogin(true);
-      this.props.history.push('/')
+      this.props.history.push('/main')  
     } catch (error) {
       console.log(error);
       this.setState({
-        message:'Erro ao login'
+        message:'Erro ao logar'
       })
     }
   }
