@@ -21,9 +21,20 @@ class NavBar extends Component {
             <Link to='/signup'><span style={{ color: 'white' }}>Buscar um Classificado</span></Link>
           </div>
 
-          <div>
-            <Link to='/#comofunciona'><span style={{ color: 'white' }}>About</span></Link>
+
+          {this.props.loggedInUser ? 
+          (<div>
+            <Link to='/main'><span style={{ color: 'white' }}>Voltar</span></Link>
           </div>
+          )
+          : 
+          (<div>
+            <Link to='/#comofunciona'><span style={{ color: 'white' }}>About</span></Link>
+          </div>)}
+
+        
+
+         
 
 
 

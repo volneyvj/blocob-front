@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Button from '../components/Button';
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
 class SignupS extends Component {
@@ -25,6 +24,7 @@ class SignupS extends Component {
   try {
       event.preventDefault();
     const user = await api.signup(this.state);
+    this.props.handleLogin(true);
     this.props.history.push('/main')
     }
   catch (error) {
