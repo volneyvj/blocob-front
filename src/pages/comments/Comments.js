@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
 class Comments extends Component {
@@ -54,7 +54,7 @@ class Comments extends Component {
         <ul>
           {this.state.comments.map(comment => {
             return (
-              <li>{comment.comment} - {comment.category} - {comment.likes}
+              <li key={comment.id}>{comment.comment} - {comment.category} - {comment.likes}
               <form><input name="id" type="hidden" value={comment._id}/>
               <button type="submit" onClick={this.submitLike(comment.id)}>CURTIR</button>
               </form>

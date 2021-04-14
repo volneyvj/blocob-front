@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
-import Login from './Login';
-import SignUp from './SignUpShort';
+import Login from './auth/Login';
+import SignUp from './auth/SignUpShort';
 
 class Home extends Component {
   render() {
@@ -24,7 +24,7 @@ class Home extends Component {
 
             <div className="">
               <p className=""></p>
-                <SignUp handleLogin = { this.props.handleLogin } history = { this.props.history }/>
+                <SignUp  {...this.props}/>
             </div>
 
           </div>

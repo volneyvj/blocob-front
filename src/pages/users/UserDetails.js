@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import Button from '../components/Button';
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
-class UserEdit extends Component {
+
+class User extends Component {
   state = {
-    id: '',
     email: '',
     cpf: '', 
     username: '',
@@ -34,7 +33,6 @@ class UserEdit extends Component {
     const email = this.props.match.params.email
     const user = await api.getUsersDetails({email})
     this.setState({
-      id: user._id,
       email: user.email,
       cpf: user.cpf, 
       username: user.username,
@@ -71,20 +69,13 @@ class UserEdit extends Component {
     })
   }
 
-  handleSubmit = async (event) => {
-    // const { email, cpf, username, password, name, lastName, cep, street, streetNumber, streetComplement, neighborhood, city, state, phone,
-    //   mobile, birthDate, profession, imgURL, score, lastZipCodeUpdate, status } = this.state;
-    event.preventDefault();
-    const user = await api.edit(this.state);
-      // console.log("editado");
-  }
+
 
   render() {
     return (
       <div>
-      <h1> edit USER </h1>
+      <h1> details USER </h1>
         <form>
-        <input name="id" type="hidden" value={this.state.id}/>
           <label>e-mail</label>
           <input name="email" type="text" value={this.state.email} onChange={this.handleInput}/>
           <label>Password</label>
@@ -128,12 +119,10 @@ class UserEdit extends Component {
            <label>status</label>
           <input name="status" type="number" value={this.state.status} onChange={this.handleInput}/>
 
-          <button type="submit" onClick={this.handleSubmit}>+</button>
         </form>
       </div>
     )
   }
 }
 
-
-export default UserEdit
+export default User

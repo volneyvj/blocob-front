@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Button from '../components/Button';
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
 // console.log(Window.localStorage);
@@ -60,7 +59,7 @@ class Users extends Component {
 
         <ul>
           {this.state.users.map(user => {
-            return <li>{user.email} - {user._id}  <Link to={`/users/userdeatails/${user.email}`}>  DETAILS </Link> - <Link to={`/users/useredit/${user.email}`}>EDIT</Link> </li>
+            return <li key={user.id}>{user.email} - {user._id}  <Link to={`/users/userdetails/${user.email}`}>  DETAILS </Link> - <Link to={`/users/useredit/${user.email}`}>EDIT</Link> </li>
           })}
         </ul>
 

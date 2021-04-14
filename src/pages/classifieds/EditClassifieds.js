@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
-import Button from '../components/Button';
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
-class classifiedAdd extends Component {
+
+class EditClassifieds extends Component {
     state = {
+        id: this.props.match.params.id,
         userID: '',
-        category: 'product',
+        category: '',
         subcategory: '',
         likes: '',
-        // dislikes: '',
-        // title: '',
+        dislikes: '',
+        title: '',
         neighborhood: '',
         description: '',
         imgURL: '',
-        price: '1',
+        price: '',
         measure: '',
-        delivery: 'false',
+        delivery: '',
         // exclusivos serviços testimonial
 
         // exclusivos projeto
         motive: '',
-        investment: '1',
+        investment: '',
         filePDF: '',
         address: '',
         desiredDate: '',
@@ -29,26 +30,70 @@ class classifiedAdd extends Component {
         status: '1',
     }
 
-    handleInput = (event) => {
-        const { name, value } = event.target
+    loadClassified = async () => {
+        const id = this.props.match.params.id
+        const classified = await api.getClassifiedsDetails(id)
         this.setState({
-            [name]: value
+            id: classified[0]._id,
+            category: classified[0].category,
+            subcategory: classified[0].subcategory,
+            likes: classified[0].likes,
+            dislikes: classified[0].dislikes,
+            title: classified[0].title,
+            neighborhood: classified[0].neighborhood,
+            description: classified[0].description,
+            imgURL: classified[0].imgURL,
+            price: classified[0].price,
+            measure: classified[0].measure,
+            delivery: classified[0].delivery,
+            // exclusivos serviços testimonial
+            // exclusivos projeto
+            motive: classified[0].motive,
+            investment: classified[0].investment,
+            filePDF: classified[0].filePDF,
+            address: classified[0].address,
+            desiredDate: classified[0].desiredDate,
+            // confirmedUsers: '',
+        
         })
-    }
+      } 
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        const user = await api.addClassified(this.state);
-        console.log("classiificado registrado");
-    }
+  componentDidMount = () => {
+    this.loadClassified();
+  }
 
-    render() {
-        return (
-            <div>
-                <h1> Adicionar Classificado </h1>
-                <form>
-                    <label>User ID</label>
-                    <input name="userID" type="text" value={this.state.userID} onChange={this.handleInput} />
+  handleInput = (event) => {
+    const { name, value } = event.target
+    this.setState({
+      [name]:value
+    })
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const classified = await api.editClassified(this.state);
+    console.log("editado");
+  }
+
+  deleteClassified = async (id) => {
+    
+    try {
+    const classified = await api.deleteClassified({id})
+    console.log("DELETADO")
+    this.loadClassifieds()
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  render() {
+    return (
+      <div>
+      <h1> EDIT CLASSIFIED </h1>
+      <form>
+      <input name="id" type="hidden" value={this.state.id}/>
+                  
                     <label>Category</label>
                     <select onChange={this.handleInput} id="category" name="category">
                         <option value="product">Product</option>
@@ -57,10 +102,7 @@ class classifiedAdd extends Component {
                     </select>
                    <label>subcategory</label>
                     <input name="subcategory" type="text" value={this.state.subcategory} onChange={this.handleInput} />
-                    {/* <label>likes</label>
-                    <input name="likes" type="text" value={this.state.likes} onChange={this.handleInput} />
-                    <label>dislikes</label>
-                    <input name="dislikes" type="text" value={this.state.dislikes} onChange={this.handleInput} /> */}
+  
                     <label>title</label>
                     <input name="title" type="text" value={this.state.title} onChange={this.handleInput} />
                     <label>neighborhood</label>
@@ -85,15 +127,15 @@ class classifiedAdd extends Component {
                     <input name="address" type="text" value={this.state.address} onChange={this.handleInput} />
                     <label>desiredDate</label>
                     <input name="desiredDate" type="date" value={this.state.desiredDate} onChange={this.handleInput} />
-                     <label>status</label>
-                    <input name="status" type="number" value={this.state.status} onChange={this.handleInput} />
-                    
-
+                
                     <button type="submit" onClick={this.handleSubmit}>+</button>
                 </form>
-            </div>
-        )
-    }
+
+                <button onClick={ () => this.deleteClassified(this.state.id)}>DELETE</button> 
+
+      </div>
+    )
+  } 
 }
 
-export default classifiedAdd
+export default EditClassifieds

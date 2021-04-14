@@ -1,29 +1,26 @@
 import React, { Component } from 'react'
-import Button from '../components/Button';
-import api from '../utils/api.util'
+import api from '../../utils/api.util'
 import { Link } from 'react-router-dom'
 
-
-class classifiedEdit extends Component {
+class AddClassifieds extends Component {
     state = {
-        id: '',
-        userID: '',
-        category: '',
+        userID: localStorage.getItem("user"),
+        category: 'product',
         subcategory: '',
-        likes: '',
-        dislikes: '',
-        title: '',
+        // likes: '',
+        // dislikes: '',
+        // title: '',
         neighborhood: '',
         description: '',
         imgURL: '',
-        price: '',
+        price: '1',
         measure: '',
-        delivery: '',
+        delivery: 'false',
         // exclusivos serviços testimonial
 
         // exclusivos projeto
         motive: '',
-        investment: '',
+        investment: '1',
         filePDF: '',
         address: '',
         desiredDate: '',
@@ -31,76 +28,53 @@ class classifiedEdit extends Component {
         status: '1',
     }
 
-    loadClassified = async () => {
-        const id = this.props.match.params.id
-        const classified = await api.getClassifiedsDetails(id)
+
+    loadUser = async () => {
+        const id = this.state.userID
+        const user = await api.getUsersDetails({ id })
         this.setState({
-            id: classified[0]._id,
-            category: classified[0].category,
-            subcategory: classified[0].subcategory,
-            likes: classified[0].likes,
-            dislikes: classified[0].dislikes,
-            title: classified[0].title,
-            neighborhood: classified[0].neighborhood,
-            description: classified[0].description,
-            imgURL: classified[0].imgURL,
-            price: classified[0].price,
-            measure: classified[0].measure,
-            delivery: classified[0].delivery,
-            // exclusivos serviços testimonial
-            // exclusivos projeto
-            motive: classified[0].motive,
-            investment: classified[0].investment,
-            filePDF: classified[0].filePDF,
-            address: classified[0].address,
-            desiredDate: classified[0].desiredDate,
-            // confirmedUsers: '',
-        
+            neighborhood: user.neighborhood,
         })
-      } 
+    }
 
-  componentDidMount = () => {
-    this.loadClassified();
-  }
+    componentDidMount = () => {
+        this.loadUser();
+    }
 
-  handleInput = (event) => {
-    const { name, value } = event.target
-    this.setState({
-      [name]:value
-    })
-  }
+    handleInput = (event) => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
-    const classified = await api.editClassified(this.state);
-    console.log("editado");
-  }
-
-
-  render() {
-    return (
-      <div>
-      <h1> EDIT CLASSIFIED </h1>
-      <form>
-      <input name="id" type="hidden" value={this.state.id}/>
-                    <label>User ID</label>
-                    <input name="userID" type="text" value={this.state.userID} onChange={this.handleInput} />
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const user = await api.addClassified(this.state);
+        this.props.history.push('/classifieds')  
+    }
+    
+    render() {
+        return (
+            <div>
+                <h1> Adicionar Classificado </h1>
+                <form>
                     <label>Category</label>
                     <select onChange={this.handleInput} id="category" name="category">
                         <option value="product">Product</option>
                         <option value="service">Service</option>
                         <option value="project">Projet</option>
                     </select>
-                   <label>subcategory</label>
+                    <label>subcategory</label>
                     <input name="subcategory" type="text" value={this.state.subcategory} onChange={this.handleInput} />
-                    <label>likes</label>
+                    {/* <label>likes</label>
                     <input name="likes" type="text" value={this.state.likes} onChange={this.handleInput} />
                     <label>dislikes</label>
-                    <input name="dislikes" type="text" value={this.state.dislikes} onChange={this.handleInput} />
+                    <input name="dislikes" type="text" value={this.state.dislikes} onChange={this.handleInput} /> */}
                     <label>title</label>
                     <input name="title" type="text" value={this.state.title} onChange={this.handleInput} />
                     <label>neighborhood</label>
-                    <input name="neighborhood" type="text" value={this.state.neighborhood} onChange={this.handleInput} />
+                    <input name="neighborhood" type="text" readOnly value={this.state.neighborhood} onChange={this.handleInput} />
                     <label>description</label>
                     <input name="description" type="text" value={this.state.description} onChange={this.handleInput} />
                     <label>imgURL</label>
@@ -121,15 +95,15 @@ class classifiedEdit extends Component {
                     <input name="address" type="text" value={this.state.address} onChange={this.handleInput} />
                     <label>desiredDate</label>
                     <input name="desiredDate" type="date" value={this.state.desiredDate} onChange={this.handleInput} />
-                     <label>status</label>
+                    <label>status</label>
                     <input name="status" type="number" value={this.state.status} onChange={this.handleInput} />
-                    
+
 
                     <button type="submit" onClick={this.handleSubmit}>+</button>
                 </form>
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 }
 
-export default classifiedEdit
+export default AddClassifieds
