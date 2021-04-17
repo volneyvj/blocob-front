@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import "../App.css";
 import api from "../utils/api.util";
 import Classifieds from "./classifieds/Classifieds";
+import { Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
 
 class Main extends Component {
   state = {
@@ -13,7 +23,7 @@ class Main extends Component {
     name: "",
     cep: "",
     street: "",
-    neighborhood: "",
+    neighborhood: localStorage.getItem("neighborhood"),
     city: "",
     imgURL: "",
     score: "",
@@ -38,70 +48,189 @@ class Main extends Component {
   };
 
   componentDidMount = async () => {
-   await this.loadUser();
+    await this.loadUser();
   };
 
   render() {
+
     return (
       <>
         <section id="main-page">
           <div className="main">
-            TAMO NA MAIN
-            <div className="user-main">
-              Bem Vindo {this.state.name} !<br></br>
-              {this.state.imgURL}
-              <br></br>
-              {this.state.username}
-              <p>
-                <b>{this.state.neighborhood}</b>
-              </p>
+
+
+            <form style={form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                id="search"
+                label="Buscar Classificado"
+                name="search"
+                autoFocus
+              />
+              <br/>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={submit}
+              >
+                Buscar
+          </Button>
+            </form>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              style={submit}
+            >
+              Busca Avançada
+          </Button>
+
+
+            <div style={main}>
+              <Container maxWidth="sm">
+                <Typography component="h2" variant="h2" align="center" color="textPrimary" gutterBottom>
+                  Bem Vindo {this.state.name} !<br></br>
+                </Typography>
+                <img src={this.state.imgURL} width="10%"></img>
+                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+
+                  {this.state.username}
+                  <p>
+                    <b>{this.state.neighborhood}</b>
+                  </p>
               Seu CEP: {this.state.cep} - {this.state.street}.
               <p>Seu Score: {this.state.score}</p>
-              <button>
-                {" "}
-                <Link to={`/users/useredit/${this.state.userid}`}>
-                  Edit
-                </Link>{" "}
-              </button>
+                </Typography>
+                <div style={mainbuttons}>
+                  <Grid container spacing={2} justify="center">
+                    <Grid item>
+                      <Button variant="contained" color="">
+                        <Link href={`/users/useredit/${this.state.userid}`}>
+                          Edit
+                      </Link>
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Container>
             </div>
-            <div className="">
-              <form>
-                <input
-                  name="search"
-                  type="text"
-                  value={this.state.search}
-                  onChange={this.handleInput}
-                />
-                <button type="submit" onClick={this.handleSubmit}>
-                  Buscar
-                </button>
-              </form>
-              <button Link to="/search">
-                Busca Avançada
-              </button>
-              <p></p>
-            </div>
+
+
+            <p></p>
+
             <Classifieds userNeighborhood={this.state.neighborhood} />
           </div>
         </section>
 
-        <p></p>
+
+
+
+
+
         <section id="comofunciona">
-          <div className="flex2">
-            <p className=""></p>
-            <img width="10%" src="/images/produtos.jpeg" alt="produtos" />
-            <br></br>Produtos
-            <p className=""></p>
-            <img width="10%" src="/images/servicos.jpeg" alt="servicos" />
-            <br></br>Serviços
-            <p className=""></p>
-            <img width="10%" src="/images/projetos.jpeg" alt="projetos" />
-            <br></br>Projetos
-          </div>
+          <Container style={comofunciona} maxWidth="lg">
+            <Grid container spacing={12}>
+              <Grid item xs={12} sm={6} md={4}>
+                <Card>
+                  <CardMedia
+                    image="/images/produtos.jpeg"
+                    title="Image title"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Produtos
+                    </Typography>
+                    <Typography>
+                      Anuncie ou busque seus produtos .....
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Card>
+                  <CardMedia
+                    image="/images/servicos.jpeg"
+                    title="Image title"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Serviços
+                    </Typography>
+                    <Typography>
+                      Tem um servi;o..... ou busque...
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Card>
+                  <CardMedia
+                    image="/images/projetos.jpeg"
+                    title="Image title"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Projetos
+                    </Typography>
+                    <Typography>
+                      Tem ideia de algum projeto social no seu bairro?
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Container>
         </section>
+
+
       </>
     );
   }
+}
+
+
+const comofunciona = {
+
+}
+
+const main = {
+  backgroundColor: "white",
+  padding: "8px 0 6px"
+}
+
+const form = {
+  width: '100%', // Fix IE 11 issue.
+  marginTop: "1px"
+}
+
+const submit = {
+  margin: "3px"
+}
+
+const mainbuttons = {
+  marginTop: "4px"
+}
+
+
+const cardGrid = {
+  paddingTop: "8px",
+  paddingBottom: "8px"
+}
+
+const card = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+}
+
+const cardMedia = {
+  paddingTop: '56.25%', // 16:9
+}
+
+const cardContent = {
+  flexGrow: 1,
 }
 
 export default Main;

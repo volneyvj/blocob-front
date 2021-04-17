@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import api from "../../utils/api.util";
-import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 class UserEdit extends Component {
   state = {
@@ -77,6 +83,7 @@ class UserEdit extends Component {
     this.setState({
       message: "Usuario Editado",
     });
+    this.props.history.push('/main')
     // console.log("editado");
   };
 
@@ -89,137 +96,291 @@ class UserEdit extends Component {
   render() {
     return (
       <div>
-        <h1> edit USER </h1>
-        {this.state.message && <h2>{this.state.message}</h2>}
-        <form>
-          <input name="id" type="hidden" value={this.state.id} />
-          <label>e-mail</label>
-          <input
-            name="email"
-            type="text"
-            value={this.state.email}
-            onChange={this.handleInput}
-          />
-          <label>CPF</label>
-          <input
-            name="cpf"
-            type="text"
-            value={this.state.cpf}
-            onChange={this.handleInput}
-          />
-          <label>username</label>
-          <input
-            name="username"
-            type="text"
-            value={this.state.username}
-            onChange={this.handleInput}
-          />
-          <label>name</label>
-          <input
-            name="name"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleInput}
-          />
-          <label>lastName</label>
-          <input
-            name="lastName"
-            type="text"
-            value={this.state.lastName}
-            onChange={this.handleInput}
-          />
-          <label>cep</label>
-          <input
-            name="cep"
-            type="text"
-            value={this.state.cep}
-            onChange={this.handleInput}
-          />
-          <label>street</label>
-          <input
-            name="street"
-            type="text"
-            value={this.state.street}
-            onChange={this.handleInput}
-          />
-          <label>street number</label>
-          <input
-            name="streetNumber"
-            type="text"
-            value={this.state.streetNumber}
-            onChange={this.handleInput}
-          />
-          <label>streetComplement</label>
-          <input
-            name="streetComplement"
-            type="text"
-            value={this.state.streetComplement}
-            onChange={this.handleInput}
-          />
-          <label>neighborhood</label>
-          <input
-            name="neighborhood"
-            type="text"
-            value={this.state.neighborhood}
-            onChange={this.handleInput}
-          />
-          <label>city</label>
-          <input
-            name="city"
-            type="text"
-            value={this.state.city}
-            onChange={this.handleInput}
-          />
-          <label>state</label>
-          <input
-            name="state"
-            type="text"
-            value={this.state.state}
-            onChange={this.handleInput}
-          />
-          <label>phone</label>
-          <input
-            name="phone"
-            type="text"
-            value={this.state.phone}
-            onChange={this.handleInput}
-          />
-          <label>mobile</label>
-          <input
-            name="mobile"
-            type="text"
-            value={this.state.mobile}
-            onChange={this.handleInput}
-          />
-          <label>birthDate</label>
-          <input
-            name="birthDate"
-            type="date"
-            value={this.state.birthDate}
-            onChange={this.handleInput}
-          />
-          <label>profession</label>
-          <input
-            name="profession"
-            type="text"
-            value={this.state.profession}
-            onChange={this.handleInput}
-          />
-          <label>imgURL</label>
-          <input
-            name="imgURL"
-            type="text"
-            value={this.state.imgURL}
-            onChange={this.handleInput}
-          />
 
-          <button type="submit" onClick={this.handleSubmit}>
-            +
-          </button>
-        </form>
+
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div style={paper}>
+            <Typography component="h1" variant="h5">
+              EDITAR PERFIL
+        </Typography>
+            <form style={form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={this.state.email}
+                autoFocus
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="cep"
+                label="cep"
+                id="cep"
+                autoComplete="cep"
+                value={this.state.cep}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+              <Link onClick={this.props.handleClick} href="/user/cep" variant="body2">
+                {"Preciso mudar o cep"}
+              </Link>
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="username"
+                label="username"
+                id="username"
+                autoComplete="username"
+                value={this.state.username}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="cpf"
+                label="cpf"
+                id="cpf"
+                autoComplete="cpf"
+                value={this.state.cpf}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="name"
+                label="name"
+                id="name"
+                autoComplete="name"
+                value={this.state.name}
+                onChange={this.handleInput}
+              />
+
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="lastName"
+                label="lastName"
+                id="lastName"
+                autoComplete="lastName"
+                value={this.state.lastName}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="street"
+                label="street"
+                id="street"
+                autoComplete="street"
+                value={this.state.street}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="streetNumber"
+                label="streetNumber"
+                id="streetNumber"
+                autoComplete="streetNumber"
+                value={this.state.streetNumber}
+                onChange={this.handleInput}
+              />
+
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="streetComplement"
+                label="streetComplement"
+                id="streetComplement"
+                autoComplete="streetComplement"
+                value={this.state.streetComplement}
+                onChange={this.handleInput}
+              />
+
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="neighborhood"
+                label="neighborhood"
+                id="neighborhood"
+                autoComplete="neighborhood"
+                value={this.state.neighborhood}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="city"
+                label="city"
+                id="city"
+                autoComplete="city"
+                value={this.state.city}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="state"
+                label="state"
+                id="state"
+                autoComplete="state"
+                value={this.state.state}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
+
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="phone"
+                label="phone"
+                id="phone"
+                autoComplete="phone"
+                value={this.state.phone}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="mobile"
+                label="mobile"
+                id="mobile"
+                autoComplete="mobile"
+                value={this.state.mobile}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="profession"
+                label="profession"
+                id="profession"
+                autoComplete="profession"
+                value={this.state.profession}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="birthDate"
+                label="birthDate"
+                id="birthDate"
+                autoComplete="birthDate"
+                value={this.state.birthDate}
+                onChange={this.handleInput}
+              />
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="imgURL"
+                label="imgURL"
+                id="imgURL"
+                autoComplete="imgURL"
+                value={this.state.imgURL}
+                onChange={this.handleInput}
+              />
+
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                style={submit}
+                onClick={this.handleSubmit}
+              >
+                Alterar Perfil
+          </Button>
+            </form>
+          </div>
+        </Container>
+
+
       </div>
     );
   }
 }
+
+const paper = {
+  marginTop: "8px",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}
+
+const form = {
+  width: '100%', // Fix IE 11 issue.
+  marginTop: "1px"
+}
+
+const submit = {
+  margin: "3px"
+}
+
 
 export default UserEdit;

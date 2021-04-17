@@ -96,9 +96,9 @@ class EditClassifieds extends Component {
                   
                     <label>Category</label>
                     <select onChange={this.handleInput} id="category" name="category">
-                        <option value="product">Product</option>
-                        <option value="service">Service</option>
-                        <option value="project">Projet</option>
+                        <option value="Produto">Product</option>
+                        <option value="Serviço">Service</option>
+                        <option value="Projeto">Projet</option>
                     </select>
                    <label>subcategory</label>
                     <input name="subcategory" type="text" value={this.state.subcategory} onChange={this.handleInput} />

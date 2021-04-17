@@ -41,9 +41,10 @@ class Api {
   login = async (payload) => {
     try {
       const { data } = await this.api.post("/user/login", payload);
-      const { id, token } = data;
+      const { id, token, neighborhood } = data;
       localStorage.setItem("user", id);
       localStorage.setItem("token", token);
+      localStorage.setItem("neighborhood", neighborhood);
     } catch (error) {
       console.error(error);
       throw new Error(error);
@@ -51,6 +52,7 @@ class Api {
   };
 
   signup = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post("/user/signup", payload);
       const { id, token } = data;
@@ -122,6 +124,7 @@ class Api {
   };
 
   getSortedClassifieds = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post("/classified/list/sort", payload);
       return data;
