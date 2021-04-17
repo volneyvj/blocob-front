@@ -36,9 +36,9 @@ render(){
 
   return (
     <div className="App">
-   <NavBar
-        loggedInUser={this.state.loggedInUser}/>
+   <NavBar props={this.props.history} loggedInUser={this.state.loggedInUser}/>
 <Switch>
+
         <Route exact path='/' render = { (props) => <Home {...props} handleLogin={this.handleLogin} />}/>
         <Route path='/signup' component={ Signup }/>
         <Route path='/login' render = { (props) => {
@@ -54,7 +54,10 @@ render(){
         <Route path='/classifieds/details/:id' component = {DetailsClassifieds}/>
         <Route path='/classifieds/add' component = {AddClassifieds}/>
         <Route path='/classifieds/edit/:id' component = {EditClassifieds}/>
-        <Route path='/main' component = {Main}/>
+        <Route path='/main' render = { (props) => {
+        if (localStorage.getItem("user") === null) return <Redirect to="/" /> 
+        else return <Main {...props} handleLogin={this.handleLogin} />
+        } }/>
      
 
 
