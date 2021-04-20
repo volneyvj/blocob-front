@@ -111,7 +111,7 @@ class UserEdit extends Component {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="email"
                 name="email"
                 autoComplete="email"
                 value={this.state.email}

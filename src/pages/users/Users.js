@@ -59,7 +59,7 @@ class Users extends Component {
 
         <ul>
           {this.state.users.map(user => {
-            return <li key={user.id}>{user.email} - {user._id}  <Link to={`/users/userdetails/${user.email}`}>  DETAILS </Link> - <Link to={`/users/useredit/${user.email}`}>EDIT</Link> </li>
+            return <li key={user._id}>{user.email} - {user._id}  <Link to={`/users/userdetails/${user.email}`}>  DETAILS </Link> - <Link to={`/users/useredit/${user.email}`}>EDIT</Link> </li>
           })}
         </ul>
 

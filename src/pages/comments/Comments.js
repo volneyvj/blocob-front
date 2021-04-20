@@ -54,7 +54,7 @@ class Comments extends Component {
         <ul>
           {this.state.comments.map(comment => {
             return (
-              <li key={comment.id}>{comment.comment} - {comment.category} - {comment.likes}
+              <li key={comment._id}>{comment.comment} - {comment.category} - {comment.likes}
               <form><input name="id" type="hidden" value={comment._id}/>
               <button type="submit" onClick={this.submitLike(comment.id)}>CURTIR</button>
               </form>

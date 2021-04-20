@@ -17,7 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 class AddClassifieds extends Component {
     state = {
         userID: localStorage.getItem("user"),
-        category: 'product',
+        category: 'Produto',
         subcategory: '',
         // likes: '',
         // dislikes: '',
@@ -63,7 +63,7 @@ class AddClassifieds extends Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         const user = await api.addClassified(this.state);
-        this.props.history.push('/classifieds')
+        this.props.history.push('/main')
     }
 
     render() {
@@ -136,6 +136,18 @@ class AddClassifieds extends Component {
                                 onChange={this.handleInput}
                             />
 
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="description"
+                                label="description"
+                                id="description"
+                                autoComplete="description"
+                                value={this.state.description}
+                                onChange={this.handleInput}
+                            />
                             <TextField
                                 variant="outlined"
                                 margin="normal"
