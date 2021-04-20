@@ -25,6 +25,7 @@ class Classifieds extends Component {
     neighborhood: localStorage.getItem("neighborhood"),
     userID: localStorage.getItem("user"),
     comment: '',
+    query: "'",
   }
   }
   
@@ -34,9 +35,9 @@ class Classifieds extends Component {
   }
 
   loadClassifieds = async () => {
-    const { neighborhood } = this.state
+    const { neighborhood, query } = this.state
     try {
-    const classifieds = await api.getClassifieds({neighborhood})
+    const classifieds = await api.getClassifieds({neighborhood, query})
     this.setState({
       classifieds: classifieds
     })
@@ -91,7 +92,7 @@ class Classifieds extends Component {
 <Typography>Seus Classificados</Typography>
           <Grid container spacing={4}>
             {this.state.userClassifieds.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={6} sm={6} md={4}>
                 <Card style={card}>
                   <CardMedia
                     style={cardMedia}
@@ -121,10 +122,16 @@ class Classifieds extends Component {
                 </Card>
               </Grid>
             ))}
-            <Link href={`/userclassifieds/`}>Ver todos seus clasificados </Link> 
+
+          </Grid>
+          <p> </p>
+          <Grid container>
+          <Grid item>
+          <Link href={`/userclassifieds/`}>Ver todos seus clasificados </Link> 
         <p></p>
         <Link href={`/classifieds/add`}>Adicionar Novo Classificado </Link> 
-          </Grid>
+        </Grid>
+        </Grid>
         </Container>
 
 
@@ -134,7 +141,7 @@ class Classifieds extends Component {
 <Typography>Classificados em Alta do Seu Bairro</Typography>
           <Grid container spacing={4}>
             {this.state.sortedClassifieds.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card style={card}>
                   <CardMedia
                     style={cardMedia}

@@ -55,9 +55,10 @@ class Api {
     console.log(payload)
     try {
       const { data } = await this.api.post("/user/signup", payload);
-      const { id, token } = data;
+      const { id, token, neighborhood } = data;
       localStorage.setItem("user", id);
       localStorage.setItem("token", token);
+      localStorage.setItem("neighborhood", neighborhood);
     } catch (error) {
       console.error(error);
       throw new Error(error);
@@ -86,6 +87,7 @@ class Api {
   };
 
   getUsersDetails = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post("/user/userdetails", payload);
       return data;

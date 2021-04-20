@@ -7,9 +7,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
@@ -28,7 +26,7 @@ class Main extends Component {
     imgURL: "",
     score: "",
     userid: localStorage.getItem("user"),
-    search: "",
+    query: "",
   };
 
   loadUser = async () => {
@@ -51,6 +49,15 @@ class Main extends Component {
     await this.loadUser();
   };
 
+
+  handleInput = (event) => {
+    const { query } = event.target;
+    this.setState({
+      query: query
+    });
+  };
+  
+
   render() {
 
     return (
@@ -63,19 +70,20 @@ class Main extends Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                id="search"
+                id="query"
                 label="Buscar Classificado"
-                name="search"
+                name="query"
                 autoFocus
+                onChange={this.handleInput}
               />
               <br/>
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
-                style={submit}
               >
-                Buscar
+              {/* <Link href={`./allclassifieds/${this.state.query}`}></Link>
+                Buscar */}
           </Button>
             </form>
 
@@ -97,16 +105,16 @@ class Main extends Component {
                 <Typography variant="h5" align="center" color="textSecondary" paragraph>
 
                   {this.state.username}
-                  <p>
+                  
                     <b>{this.state.neighborhood}</b>
-                  </p>
+                  
               Seu CEP: {this.state.cep} - {this.state.street}.
-              <p>Seu Score: {this.state.score}</p>
+              Seu Score: {this.state.score}
                 </Typography>
                 <div style={mainbuttons}>
                   <Grid container spacing={2} justify="center">
                     <Grid item>
-                      <Button variant="contained" color="">
+                      <Button variant="contained" color="primary">
                         <Link href={`/users/useredit/${this.state.userid}`}>
                           Edit
                       </Link>
@@ -118,21 +126,19 @@ class Main extends Component {
             </div>
 
 
-            <p></p>
+           
 
             <Classifieds userNeighborhood={this.state.neighborhood} />
           </div>
         </section>
 
-
-
-
+          <Typography><Link href={`/allclassifieds/${this.state.query}`}>Ver Todos Classificados do Bairro</Link></Typography>
 
 
         <section id="comofunciona">
           <Container style={comofunciona} maxWidth="lg">
-            <Grid container spacing={12}>
-              <Grid item xs={12} sm={6} md={4}>
+            <Grid container spacing={8}>
+              <Grid item xs={6} sm={6} md={4}>
                 <Card>
                   <CardMedia
                     image="/images/produtos.jpeg"
@@ -148,7 +154,7 @@ class Main extends Component {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={6} sm={6} md={4}>
                 <Card>
                   <CardMedia
                     image="/images/servicos.jpeg"
@@ -164,7 +170,7 @@ class Main extends Component {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={6} sm={6} md={4}>
                 <Card>
                   <CardMedia
                     image="/images/projetos.jpeg"

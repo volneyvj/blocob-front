@@ -9,7 +9,7 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import Users from './pages/users/Users';
 import UserClassifieds from './pages/classifieds/UserClassifieds';
-import Classifieds from './pages/classifieds/Classifieds';
+import Classifieds from './pages/classifieds/AllClassifieds';
 import Comments from './pages/comments/Comments';
 import UserDetails from './pages/users/UserDetails';
 import UserEdit from './pages/users/UserEdit';
@@ -50,7 +50,7 @@ render(){
         <Route path='/users/userdetails/:id' component = {UserDetails}/>
         <Route path='/users/useredit/:id' component = {UserEdit}/>
         <Route path='/userclassifieds/' component = {UserClassifieds}/>
-        <Route exact path='/classifieds/' component = {Classifieds}/>
+        <Route path='/allclassifieds/' component = {Classifieds}/>
         <Route path='/classifieds/details/:id' component = {DetailsClassifieds}/>
         <Route path='/classifieds/add' component = {AddClassifieds}/>
         <Route path='/classifieds/edit/:id' component = {EditClassifieds}/>

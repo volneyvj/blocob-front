@@ -1,6 +1,18 @@
 import React, { Component } from 'react'
 import api from '../../utils/api.util'
-import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 class EditClassifieds extends Component {
@@ -73,14 +85,14 @@ class EditClassifieds extends Component {
     event.preventDefault();
     const classified = await api.editClassified(this.state);
     console.log("editado");
+    this.props.history.push("/main")
   }
 
   deleteClassified = async (id) => {
-    
     try {
     const classified = await api.deleteClassified({id})
     console.log("DELETADO")
-    this.loadClassifieds()
+    this.props.history.push("/main")
     }
     catch (error) {
       console.log(error);
@@ -90,52 +102,252 @@ class EditClassifieds extends Component {
   render() {
     return (
       <div>
-      <h1> EDIT CLASSIFIED </h1>
-      <form>
-      <input name="id" type="hidden" value={this.state.id}/>
-                  
-                    <label>Category</label>
-                    <select onChange={this.handleInput} id="category" name="category">
-                        <option value="Produto">Product</option>
-                        <option value="Serviço">Service</option>
-                        <option value="Projeto">Projet</option>
-                    </select>
-                   <label>subcategory</label>
-                    <input name="subcategory" type="text" value={this.state.subcategory} onChange={this.handleInput} />
-  
-                    <label>title</label>
-                    <input name="title" type="text" value={this.state.title} onChange={this.handleInput} />
-                    <label>neighborhood</label>
-                    <input name="neighborhood" type="text" value={this.state.neighborhood} onChange={this.handleInput} />
-                    <label>description</label>
-                    <input name="description" type="text" value={this.state.description} onChange={this.handleInput} />
-                    <label>imgURL</label>
-                    <input name="imgURL" type="text" value={this.state.imgURL} onChange={this.handleInput} />
-                    <label>PRICE</label>
-                    <input name="price" type="number" value={this.state.price} onChange={this.handleInput} />
-                    <label>measure</label>
-                    <input name="measure" type="text" value={this.state.measure} onChange={this.handleInput} />
-                    <label>delivery</label>
-                    <input name="delivery" type="checkbox" value={this.state.delivery} onChange={this.handleInput} />
-                    <label>motive</label>
-                    <input name="motive" type="text" value={this.state.motive} onChange={this.handleInput} />
-                    <label>investment</label>
-                    <input name="investment" type="number" value={this.state.investment} onChange={this.handleInput} />
-                    <label>filePDF</label>
-                    <input name="filePDF" type="text" value={this.state.filePDF} onChange={this.handleInput} />
-                    <label>address</label>
-                    <input name="address" type="text" value={this.state.address} onChange={this.handleInput} />
-                    <label>desiredDate</label>
-                    <input name="desiredDate" type="date" value={this.state.desiredDate} onChange={this.handleInput} />
-                
-                    <button type="submit" onClick={this.handleSubmit}>+</button>
-                </form>
 
-                <button onClick={ () => this.deleteClassified(this.state.id)}>DELETE</button> 
 
+
+<Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <div style={paper}>
+                        <Typography component="h1" variant="h5">
+                            Editar Classificado
+        </Typography>
+                        <form style={form} noValidate>
+                        <input name="id" type="hidden" value={this.state.id}/>
+                            <FormControl style={formControl}>
+                                <InputLabel id="catetegory">Categoria</InputLabel>
+                                <Select
+                                    labelId="category"
+                                    id="category"
+                                    value={this.state.category}
+                                    name="category"
+                                    onChange={this.handleInput}
+                                >
+                                    <MenuItem value="Produto">Produto</MenuItem>
+                                    <MenuItem value="Serviço">Serviço</MenuItem>
+                                    <MenuItem value="Projeto">Projeto</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="subcategory"
+                                label="subcategory"
+                                name="subcategory"
+                                autoComplete="subcategory"
+                                value={this.state.subcategory}
+                                autoFocus
+                                onChange={this.handleInput}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="neighborhood"
+                                label="neighborhood"
+                                id="neighborhood"
+                                autoComplete="neighborhood"
+                                value={this.state.neighborhood}
+                                inputProps={
+                                    { readOnly: true, }
+                                }
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="title"
+                                label="title"
+                                id="title"
+                                autoComplete="title"
+                                value={this.state.title}
+                                onChange={this.handleInput}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="description"
+                                label="description"
+                                id="description"
+                                autoComplete="description"
+                                value={this.state.description}
+                                onChange={this.handleInput}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                type="number"
+                                required
+                                fullWidth
+                                name="price"
+                                label="price"
+                                id="price"
+                                autoComplete="price"
+                                value={this.state.price}
+                                onChange={this.handleInput}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="measure"
+                                label="measure"
+                                id="measure"
+                                autoComplete="measure"
+                                value={this.state.measure}
+                                onChange={this.handleInput}
+                            />
+
+                            <Checkbox
+                                checked={this.state.delivery}
+                                onChange={this.handleInput}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="motive"
+                                label="motive"
+                                id="motive"
+                                autoComplete="motive"
+                                value={this.state.motive}
+                                onChange={this.handleInput}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="investment"
+                                label="investment"
+                                id="investment"
+                                autoComplete="investment"
+                                value={this.state.investment}
+                                onChange={this.handleInput}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="filePDF"
+                                label="filePDF"
+                                id="filePDF"
+                                autoComplete="filePDF"
+                                value={this.state.filePDF}
+                                onChange={this.handleInput}
+                            />
+
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="address"
+                                label="address"
+                                id="address"
+                                autoComplete="address"
+                                value={this.state.address}
+                                onChange={this.handleInput}
+                            />
+
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="desiredDate"
+                                label="desiredDate"
+                                id="desiredDate"
+                                autoComplete="desiredDate"
+                                value={this.state.desiredDate}
+                                onChange={this.handleInput}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="imgURL"
+                                label="imgURL"
+                                id="imgURL"
+                                autoComplete="imgURL"
+                                value={this.state.imgURL}
+                                onChange={this.handleInput}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                style={submit}
+                                onClick={this.handleSubmit}
+                            >
+                                EDITAR
+          </Button>
+                        </form>
+                    </div>
+
+                    <Button
+        variant="contained"
+        color="secondary"
+        startIcon={<DeleteIcon />}
+        onClick={() => this.deleteClassified(this.state.id)}
+      >
+        Deletar
+      </Button>  
+                </Container>
+                <br></br>
+             
       </div>
     )
   } 
 }
+
+
+const paper = {
+  marginTop: "8px",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}
+
+const form = {
+  width: '100%', // Fix IE 11 issue.
+  marginTop: "1px"
+}
+
+const submit = {
+  margin: "3px"
+}
+
+const formControl = {
+  margin: "1px",
+  minWidth: 120,
+}
+
+const selectEmpty = {
+  marginTop: "2px"
+}
+
+
 
 export default EditClassifieds

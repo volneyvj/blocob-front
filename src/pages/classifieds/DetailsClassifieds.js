@@ -10,12 +10,15 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import { purple, red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
 
 
 class DetailsClassifieds extends Component {
@@ -106,12 +109,13 @@ class DetailsClassifieds extends Component {
   addComment = async (event) => {
     event.preventDefault();
     const classified = await api.addComment(this.state.newComment);
-    console.log("comentario enviado");
     this.loadComments();
+    this.setState({
+      comment: ""
+    })
   };
 
-  submitLike = async (event) => {
-    event.preventDefault();
+  submitLike = async () => {
     const classified = await api.rankClassified({
       id: this.props.match.params.id,
       likes: localStorage.getItem("user"),
@@ -122,9 +126,11 @@ class DetailsClassifieds extends Component {
 
 
   handleExpandClick = () => {
-    this.state.setExpanded(!this.state.expanded);
+    this.setState({
+      expanded: !this.state.expanded
+    });
   };
-
+    
   
   render() {
     return (
@@ -133,22 +139,17 @@ class DetailsClassifieds extends Component {
         <Card style={root}>
           <CardHeader
             avatar={
-              <Avatar aria-label="recipe" style={avatar}>
+              <Avatar style={avatar}>
              {this.state.neighborhood}
           </Avatar>
             }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
+          
             title={this.state.title}
             subheader={this.state.category}
           />
           <CardMedia
             style={media}
             image={this.state.imgURL}
-            title={this.state.title}
           />
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
@@ -157,23 +158,22 @@ class DetailsClassifieds extends Component {
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
-              <FavoriteIcon /> {this.state.likes}
+              <FavoriteIcon 
+                 onClick={() => this.submitLike()}
+              /> {this.state.likes}
             </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <IconButton
-        
+            <IconButton 
+              style={expandicon}         
               onClick={() => this.handleExpandClick()}
-              aria-expanded={this.state.expanded}
               aria-label="ver +"
             >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
+          
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph>Username: {this.state.userID}</Typography>
+              <Typography paragraph>Username: <Link href={`/users/userdetails/${this.state.userID}`}>{this.state.userID}</Link></Typography>
               <Typography paragraph>
               Preço: {this.state.price} por {this.state.measure} -   Entrega: {this.state.delivery}
           </Typography>
@@ -191,10 +191,12 @@ class DetailsClassifieds extends Component {
              Download filePDF {this.state.filePDF}
           </Typography>
             </CardContent>
-          </Collapse>
+          </Collapse>    
+ 
+           
         </Card>
 
-
+      
       
 
         {this.state.userID === localStorage.getItem("user") ? (
@@ -203,20 +205,31 @@ class DetailsClassifieds extends Component {
           </div>
         ) : (
           <div>
-            {" "}
-            <form>
-              <textarea
+            <form style={form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                id="comment"
+                label="comment"
                 name="comment"
-                value={this.state.newComment.comment}
+                autoComplete="comment"
+                value={this.state.comment}
+                autoFocus
                 onChange={this.handleInput}
-              ></textarea>
-              <button type="submit" onClick={this.addComment}>
-                ENVIAR
-              </button>
+              />
+<br/>
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={submit}
+                onClick={this.addComment}
+              >
+                Enviar Comentário
+          </Button>
             </form>
-            <button type="submit" onClick={this.submitLike}>
-              CURTIR
-            </button>
+        
           </div>
         )}
 
@@ -224,7 +237,7 @@ class DetailsClassifieds extends Component {
         <Typography variant="h3">Comentários</Typography>
           {this.state.comments.map((comment) => {
             return (
-              <li key={comment.id}>
+              <li key={comment._id}>
                 {comment.comment}- {comment.category}- {comment.likes}
                 {/* <form><input name="id" type="hidden" value={this.state.id}/>
               <button type="submit" onClick={this.submitLike}>CURTIR</button>
@@ -246,7 +259,7 @@ class DetailsClassifieds extends Component {
 
 const root = {
   maxWidth: 345,
-  marginLeft: "400px",
+  marginLeft: "500px",
   marginTop: "20px"
 }
 
@@ -261,14 +274,27 @@ const expand = {
   transition: `opacity 300ms ease-in-out`,
 }
 
+const expandicon = {
+  marginLeft: 'auto'
+}
+
 const expandOpen = {
   transform: 'rotate(180deg)',
 }
 
 const avatar = {
-  backgroundColor: red[500],
+  backgroundColor: "orange",
+  width: "100%"
 }
 
 
+const form = {
+  width: '100%', // Fix IE 11 issue.
+  marginTop: "1px"
+}
+
+const submit = {
+  margin: "3px"
+}
 
 export default DetailsClassifieds;
