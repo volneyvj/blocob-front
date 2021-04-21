@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 
 class Main extends Component {
   state = {
@@ -63,132 +64,98 @@ class Main extends Component {
     return (
       <>
         <section id="main-page">
-          <div className="main">
-
-
-            <form style={form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                id="query"
-                label="Buscar Classificado"
-                name="query"
-                autoFocus
-                onChange={this.handleInput}
-              />
-              <br/>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-              >
-              {/* <Link href={`./allclassifieds/${this.state.query}`}></Link>
-                Buscar */}
-          </Button>
-            </form>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              style={submit}
-            >
-              Busca Avançada
-          </Button>
-
-
-            <div style={main}>
-              <Container maxWidth="sm">
-                <Typography component="h2" variant="h2" align="center" color="textPrimary" gutterBottom>
-                  Bem Vindo {this.state.name} !<br></br>
-                </Typography>
-                <img src={this.state.imgURL} width="10%"></img>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
-
+         <div className="mainFlex">
+        
+          <div className="userInfo"> <img src={this.state.imgURL} width="25%"></img>
+          <Typography variant="h5" align="left" color="textPrimary" >
                   {this.state.username}
+                  <br/>
+                  <b>{this.state.neighborhood}</b>
+                  </Typography>
+                  Seu CEP: {this.state.cep} 
+                  <br/>{this.state.street}
+                 <br/> Seu Score: {this.state.score}
                   
-                    <b>{this.state.neighborhood}</b>
-                  
-              Seu CEP: {this.state.cep} - {this.state.street}.
-              Seu Score: {this.state.score}
-                </Typography>
-                <div style={mainbuttons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Button variant="contained" color="primary">
+                    <div style={mainbuttons}>
+                      <Grid container spacing={2} justify="left">
+                        <Grid item>
                         <Link href={`/users/useredit/${this.state.userid}`}>
-                          Edit
-                      </Link>
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Container>
-            </div>
-
-
-           
-
-            <Classifieds userNeighborhood={this.state.neighborhood} />
-          </div>
+                          <Button variant="contained" style={button}>
+                              Edit
+                          </Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                      
+               </div>
+               </div>
+ 
+          <div className=""></div>
+          <div className="">         <Classifieds userNeighborhood={this.state.neighborhood} /> </div>
+    
+         </div>
+        
         </section>
 
-          <Typography><Link href={`/allclassifieds/${this.state.query}`}>Ver Todos Classificados do Bairro</Link></Typography>
 
-
-        <section id="comofunciona">
-          <Container style={comofunciona} maxWidth="lg">
-            <Grid container spacing={8}>
-              <Grid item xs={6} sm={6} md={4}>
-                <Card>
-                  <CardMedia
-                    image="/images/produtos.jpeg"
-                    title="Image title"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Produtos
+          <section id="comofunciona">
+            <Container style={comofunciona} maxWidth="lg">
+              <Grid container spacing={12}>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card style={cardComo}>
+                    <CardMedia
+                      image="/images/produtos.jpeg"
+                      title="Image title"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Produtos
                     </Typography>
-                    <Typography>
-                      Anuncie ou busque seus produtos .....
+                      <Typography>
+                        Anuncie ou busque produtos no BlocoB.
+                        Faça um simples cadastro e já começe utlizando nossa plataforma para vendas de alimentos, materiais, ou até doaçoes são bem vindas.
+                        Sempre pensando na comunidade e harmonia de seu bairro
                     </Typography>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card style={cardComo2}>
+                    <CardMedia
+                      image="/images/servicos.jpeg"
+                      title="Image title"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Serviços
+                    </Typography>
+                      <Typography>
+                        Procura um serviço espcecífico ou tem habilidades para reparo, pintura, passeio com cachorro, enfim... 
+                        Muitas opções para você divulgar seu trabalho ou contratar o serviço de alguém de confiança do seu próprio bairro. Não esqueça de escrever sua recomendação.
+                    </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card style={cardComo}>
+                    <CardMedia
+                      image="/images/projetos.jpeg"
+                      title="Image title"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Projetos
+                    </Typography>
+                      <Typography>
+                        Tem ideia de algum projeto social no seu bairro? Aquela praça que precisa de uma revitalização com um pet-place, ou quem sabe
+                        melhorar o acesso da passarela que comunica com o bairro vizinho. Escreva um projeto e encontre adeptos na comunidade. 
+                    </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
               </Grid>
-              <Grid item xs={6} sm={6} md={4}>
-                <Card>
-                  <CardMedia
-                    image="/images/servicos.jpeg"
-                    title="Image title"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Serviços
-                    </Typography>
-                    <Typography>
-                      Tem um servi;o..... ou busque...
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={6} sm={6} md={4}>
-                <Card>
-                  <CardMedia
-                    image="/images/projetos.jpeg"
-                    title="Image title"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Projetos
-                    </Typography>
-                    <Typography>
-                      Tem ideia de algum projeto social no seu bairro?
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Container>
-        </section>
+            </Container>
+          </section>
 
 
       </>
@@ -197,13 +164,11 @@ class Main extends Component {
 }
 
 
-const comofunciona = {
-
-}
-
 const main = {
-  backgroundColor: "white",
-  padding: "8px 0 6px"
+  backgroundColor: "#EEEDEB",
+  padding: "8px 0 6px",
+  marginTop: "10px",
+  fontFamily: 'Quicksand'
 }
 
 const form = {
@@ -222,7 +187,8 @@ const mainbuttons = {
 
 const cardGrid = {
   paddingTop: "8px",
-  paddingBottom: "8px"
+  paddingBottom: "8px",
+  backgroundColor: "#EEEDEB"
 }
 
 const card = {
@@ -239,4 +205,28 @@ const cardContent = {
   flexGrow: 1,
 }
 
+
+const comofunciona = {
+  padding: "40px"
+          }
+  
+  const cardComo = {
+    padding: "0x",
+    backgroundColor: "#d0d6d3"
+  }
+  
+  const cardComo2 = {
+    padding: "0x",
+    backgroundColor: "#98B4D4"
+  }
+  
+  const button = {
+          background: "#2A4654",
+          borderRadius: 3,
+          border: 0,
+          color: 'white',
+          height: 48,
+          padding: '0 30px',
+          boxShadow: '0 3px 5px 2px rgba(9, 92, 95, .3)'
+  }
 export default Main;

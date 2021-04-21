@@ -50,7 +50,8 @@ class DetailsClassifieds extends Component {
       classifiedID: "",
     },
     expanded: false,
-    setExpanded: false
+    setExpanded: false,
+    favorite: "default"
 
   };
 
@@ -83,7 +84,6 @@ class DetailsClassifieds extends Component {
 
   loadComments = async () => {
     try {
-      // const { id } = this.state
       const allComments = await api.getComments(this.props.match.params.id);
       this.setState({ comments: allComments });
     } catch (error) {
@@ -91,9 +91,20 @@ class DetailsClassifieds extends Component {
     }
   };
 
+  checkIfLiked = async () => {
+    const hasLiked = await api.checkRankClassified({
+      id: this.props.match.params.id,
+      likes: localStorage.getItem("user"),
+    });
+    if (hasLiked === true) {
+      this.setState({favorite: "secondary"})
+    }
+  }
+
   componentDidMount = () => {
     this.loadClassified();
     this.loadComments();
+    this.checkIfLiked();
   };
 
   handleInput = (event) => {
@@ -116,12 +127,22 @@ class DetailsClassifieds extends Component {
   };
 
   submitLike = async () => {
-    const classified = await api.rankClassified({
+    const liked = await api.rankClassified({
       id: this.props.match.params.id,
       likes: localStorage.getItem("user"),
     });
-    console.log("curtido");
+    if (liked === false) {
+      this.setState({
+        favorite: ""
+      })
+    }
+    else {
+      this.setState({
+        favorite: "secondary"
+      })
+    }
     this.loadClassified();
+   console.log(this.state.favorite)
   };
 
 
@@ -157,10 +178,13 @@ class DetailsClassifieds extends Component {
         </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
+            <IconButton 
+            color={this.state.favorite} 
+            onClick={() => this.submitLike()}
+            aria-label="add to favorites">
               <FavoriteIcon 
-                 onClick={() => this.submitLike()}
-              /> {this.state.likes}
+                
+              /> {this.state.likes.length}
             </IconButton>
             <IconButton 
               style={expandicon}         

@@ -1,6 +1,14 @@
+body {
+  background-color: #EEEDEB;
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+
 .App {
   text-align: center;
+  font-family: 'Quicksand', sans-serif !important;
 }
+
 
 .home-login {
   
@@ -18,4 +26,26 @@
 .footer {
   color: white;
   background-color: #0b2811;
+}
+
+.mainFlex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: space-around;
+  margin: 20px;
+}
+
+.userInfo {
+  height: auto;
+  width: 300px;
+  position: relative;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+#main-page {
+  background-color: #EEEDEB;
 }

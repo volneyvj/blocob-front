@@ -11,11 +11,19 @@ import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { withRouter } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: "90px"
   },
+
+  appStyle: {
+background:  '#E4E6DC',
+  },
+  
   menuButton: {
     marginRight: theme.spacing(2),
     paddingTop: "20px",
@@ -34,14 +42,50 @@ const useStyles = makeStyles(theme => ({
 
   logo: {
     margin: "8px",
-    width: "5%",
+    width: "4%",
     // height: "100px"
   },
 
   link: {
     margin: "0",
     padding: "0"
+  },
+
+  buttom: {
+    background: "#2A4654",
+    borderRadius: 2,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(9, 92, 95, .3)',
+    marginTop: "8px",
+    '&:hover': {
+      backgroundColor: '#e57373',
+      color: '#fff',
+  },
+  },
+
+  form: {
+    width: '100%', 
+    marginTop: "1px"
+  },
+  
+  submit: {
+    margin: "3px",
+    marginTop: "15px",
+    background: "#2A4654",
+    '&:hover': {
+      backgroundColor: '#e57373',
+      color: '#fff',
+  },
+  },
+
+  field: {
+    marginTop: "4px",
+    color: "white"
   }
+
 }));
 
 const NavBar = props => {
@@ -93,7 +137,7 @@ const NavBar = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.appStyle} position="fixed">
         <Toolbar>
   
         {/* <CardMedia
@@ -140,14 +184,50 @@ const NavBar = props => {
             </>
           ) : (
             <div className={classes.headerOptions}>
+
+            {localStorage.getItem("user") ?  (
+            <form className={classes.form} noValidate>
+              <TextField
+                id="query"
+                label="Buscar Classificado"
+                name="query"
+                autoFocus
+                className={classes.field}
+                inputProps={{ style: { fontFamily: 'nunito', color: 'gray'}}}
+                // onChange={this.handleInput}
+              />
               <Button
-                variant="contained" color="primary"
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >Buscar
+              {/* <Link href={`./allclassifieds/${this.state.query}`}></Link>
+                Buscar */}
+          </Button>
+          <Button
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+            >
+              Busca Avançada
+          </Button>
+            </form>
+            ) : (
+              <div>
+              </div>
+           )
+              }
+          
+
+              <Button
+                variant="contained" className={classes.buttom}
                 onClick={() => handleButtonClick("/#comofunciona")}
               >
                 Como Funciona
               </Button>
               <Button
-                variant="contained" color="primary"
+                variant="contained" className={classes.buttom}
                 onClick={() => handleButtonClick("/#singup")}
               >
                 Buscar um Classificado
@@ -157,14 +237,14 @@ const NavBar = props => {
 
               {localStorage.getItem("user") ?  (
                 <Button
-                variant="contained" color="primary"
+                variant="contained" className={classes.buttom}
                 onClick={() => handleSubmit2()}
               >
                 LogOut   
              </Button>
               ) : (
               <Button
-                variant="contained" color="primary"
+                variant="contained" className={classes.buttom}
                 onClick={() => handleButtonClick("/#comofunciona")}
               >
                 ABOUT   
