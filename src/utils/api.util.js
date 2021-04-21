@@ -189,7 +189,17 @@ class Api {
     }
   };
 
-  // -- Coment ROUTES -------
+  checkRankClassified = async (payload) => {
+    try {
+      const { data } = await this.api.post("classified/checkrank", payload);
+      return data;  
+    } catch (error) {
+    throw new Error(error);
+  }
+  };
+
+
+  // -- Comments ROUTES -------
 
   getComments = async (payload) => {
     // console.log(`ESTAMOS FALANDO DESSE: ${payload}`)

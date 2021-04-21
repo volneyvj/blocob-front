@@ -132,7 +132,18 @@ class Login extends Component {
   }
 
   const submit = {
-            margin: "3px"
+            margin: "3px",
+            background: "#2A4654",
+            '&:hover': {
+              backgroundColor: '#e57373',
+              color: '#fff',
+          },
+            borderRadius: 3,
+            border: 0,
+            color: 'white',
+            height: 48,
+            padding: '0 30px',
+            boxShadow: '0 3px 5px 2px rgba(9, 92, 95, .3)'
   }
 
 

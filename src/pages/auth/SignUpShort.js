@@ -28,7 +28,7 @@ class SignupS extends Component {
 
 
   getNeighborhood = async () => {
-    const cep = this.state.cep
+    const cep = this.state.cep.slice(0, -3)+"-"+this.state.cep.slice(-3)
     try {
    let cepData =  await  axios.get(`http://viacep.com.br/ws/${cep}/json/`)
             this.setState({
@@ -51,10 +51,11 @@ class SignupS extends Component {
   }
 
   handleInput2 = (event) => {
-    if (isNaN(Number(event.target.value))) {
-      return;
+    if (isFinite(event.target.value)) {
+    // if (isNaN(Number(event.target.value))) {
+      this.setState({ cep: event.target.value });
     } else {
-      this.setState({ value: event.target.value });
+        return;
     }
   }
 
@@ -116,12 +117,16 @@ class SignupS extends Component {
                   name="cep"
                   label="cep"
                   id="cep"
+                  type="text"
+                  inputProps={{
+    maxLength: 8,
+  }}
                   autoComplete="cep"
                   value={this.state.cep}
-                  onChange={this.handleInput}
+                  onChange={this.handleInput2}
                 />
 
-                <Button
+                <Button 
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -156,7 +161,20 @@ marginTop: "1px"
 }
 
 const submit = {
-  margin: "3px"
+  margin: "3px",
+  background: "#2A4654",
+  "&:hover": {
+    background: "#e57373"
+  },
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(9, 92, 95, .3)'
 }
+
+
+
 
 export default SignupS

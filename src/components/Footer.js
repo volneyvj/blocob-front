@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import '../App.css';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 class Footer extends Component {
     render() {
@@ -11,15 +14,16 @@ class Footer extends Component {
          
 
          <footer style={footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          BlocoB - Seu Bairro mais seu
-        </Typography>
+         <Grid container alignContent="space-between">
+        <Grid item>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+        Copyright @ 2021 BlocoB Project
         </Typography>
-        <ul className="">
-                                    <li><Link to='/'>Facebook </Link></li>
-                                   <li><Link to='/'>Instagram </Link></li>
-                                </ul>
+        </Grid>
+        <Grid style={ficons} item>
+        <FacebookIcon /> <InstagramIcon /> <GitHubIcon />
+        </Grid>
+       </Grid>
       </footer>
 
           </div>
@@ -30,9 +34,14 @@ class Footer extends Component {
 
  
       const footer = {
-        backgroundColor: "gray",
-        padding: "6px"
+        backgroundColor: "#cdd1cf",
+        padding: "6px",
       }
+
+      const ficons = {
+        marginLeft: "1040px"
+      }
+  
 
 
 
