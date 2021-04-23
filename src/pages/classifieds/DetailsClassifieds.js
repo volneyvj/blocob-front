@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import api from "../../utils/api.util";
-import clsx from 'clsx';
+import '../../App.css'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -142,7 +142,6 @@ class DetailsClassifieds extends Component {
       })
     }
     this.loadClassified();
-   console.log(this.state.favorite)
   };
 
 
@@ -155,7 +154,7 @@ class DetailsClassifieds extends Component {
   
   render() {
     return (
-      <div>
+      <div className="page">
 
         <Card style={root}>
           <CardHeader
@@ -283,7 +282,7 @@ class DetailsClassifieds extends Component {
 
 const root = {
   maxWidth: 345,
-  marginLeft: "500px",
+  marginLeft: "37.5%",
   marginTop: "20px"
 }
 

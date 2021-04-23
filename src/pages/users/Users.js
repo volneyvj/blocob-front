@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import api from '../../utils/api.util'
-import { Link } from 'react-router-dom'
+import '../../App.css'
+import Link from '@material-ui/core/Link';
+import { Typography } from '@material-ui/core'
 
 // console.log(Window.localStorage);
 
 class Users extends Component {
   state = {
     users: [],
-    neighborhood: '',
-    // userid: localStorage.getItem("user"),
+    neighborhood: localStorage.getItem("neighborhood"),
   }
   
 
   loadUsers = async () => {
-    // const nomeBanana = this.props.match.params.banana
-    // console.log(nomeBanana)
+    const { neighborhood } = this.state
    try {
-
-   const users = await api.getAllUsers()
+   const users = await api.getAllUsers({neighborhood})
     this.setState({
       users: users
     })
@@ -31,42 +30,20 @@ class Users extends Component {
     this.loadUsers();
   }
 
-  handleInput = (event) => {
-    const { name, value } = event.target
-    this.setState({
-      [name]:value
-    })
-  }
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-    const { neighborhood } = this.state
-    const users = await api.getUsers({neighborhood})
-    console.log(users)
-    this.setState({
-      users: users
-    })
-  } 
 
   render() {
     return (
-      <div>
-        <form>
-          <label>neighborhood</label>
-          <input name="neighborhood" type="text" value={this.state.neighborhood} onChange={this.handleInput}/>
-          <button type="submit" onClick={this.handleSubmit}>+</button>
-        </form>
-
-        <ul>
+      <div className="chat">
+      <Typography variant="h5">Usuários da {`${this.state.neighborhood}`}</Typography> 
+       <ul>
           {this.state.users.map(user => {
-            return <li key={user._id}>{user.email} - {user._id}  <Link to={`/users/userdetails/${user.email}`}>  DETAILS </Link> - <Link to={`/users/useredit/${user.email}`}>EDIT</Link> </li>
+            return <li key={user._id}>
+            <img className="small-img" src={user.imgURL} alt={user._id}></img> 
+            {user.username} <Link color="secondary" href={`/users/userdetails/${user._id}`}>+</Link> 
+            </li>
           })}
         </ul>
 
-        <p>
-        <Link to='/signup'>SignUp</Link>
-        <Link to='/users/useredit/${}'>Edit</Link> 
-        </p>
       </div>
     )
   }

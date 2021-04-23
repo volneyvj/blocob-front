@@ -48,7 +48,6 @@ class Classifieds extends Component {
 
   loadSortedClassifieds = async () => {
     const { neighborhood } = this.state
-    console.log(neighborhood)
     try {
       const classifieds = await api.getSortedClassifieds({ neighborhood })
       this.setState({

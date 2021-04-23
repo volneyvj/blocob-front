@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+
+
 class UserEdit extends Component {
   state = {
     id: "",
@@ -29,10 +31,34 @@ class UserEdit extends Component {
     birthDate: "",
     profession: "",
     imgURL: "",
-    score: "",
-    lastZipCodeUpdate: "",
-    status: "",
+    score: 10,
+    // lastZipCodeUpdate: "",
+    status: 1,
   };
+
+  // handleFileUpload = e => {
+  //   // console.log('The file to be uploaded is: ', e.target.files[0]);
+ 
+  //   const uploadData = new FormData();
+  //   // imageUrl => this name has to be the same as in the model since we pass
+  //   // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+  //   uploadData.append('imgURL', e.target.files[0]);
+  //   this.setState({ imgURL: response.secure_url });
+ 
+  
+  //   api
+  //     .handleUpload(uploadData)
+  //     .then(response => {
+  //       // console.log('response is: ', response);
+  //       // after the console.log we can see that response carries 'secure_url' which we can use to update the state
+  //       this.setState({ imgURL: response.secure_url });
+  //     })
+  //     .catch(err => {
+  //       console.log('Error while uploading the file: ', err);
+  //     });
+  // };
+
+  
 
   loadUser = async () => {
     const id = this.props.match.params.id;
@@ -57,9 +83,9 @@ class UserEdit extends Component {
       birthDate: user.birthDate,
       profession: user.profession,
       imgURL: user.imgURL,
-      score: user.score,
-      lastZipCodeUpdate: user.lastZipCodeUpdate,
-      status: user.status,
+      // score: user.score,
+      // lastZipCodeUpdate: user.lastZipCodeUpdate,
+      // status: user.status,
       message: "",
     });
   };
@@ -75,11 +101,43 @@ class UserEdit extends Component {
     });
   };
 
+  handleFile = e => {
+    this.setState({imgURL: e.target.files[0]})
+  }
+
   handleSubmit = async (event) => {
     // const { email, cpf, username, password, name, lastName, cep, street, streetNumber, streetComplement, neighborhood, city, state, phone,
     //   mobile, birthDate, profession, imgURL, score, lastZipCodeUpdate, status } = this.state;
     event.preventDefault();
-    const user = await api.edit(this.state);
+
+
+    const formData = new FormData();
+    //  console.log(this.state.imgFile)
+     
+    formData.append('imgURL', this.state.imgURL);
+    formData.append('id', this.state.id);
+    formData.append('email', this.state.email);
+    formData.append('cpf', this.state.cpf);
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
+    formData.append('name', this.state.name);
+    formData.append('lastName', this.state.lastName);
+    formData.append('cep', this.state.cep);
+    formData.append('street', this.state.street);
+    formData.append('streetNumber', this.state.streetNumber);
+    formData.append('streetComplement', this.state.streetComplement);
+    formData.append('neighborhood', this.state.neighborhood);
+    formData.append('city', this.state.city);
+    formData.append('state', this.state.state);
+    formData.append('phone', this.state.phone);
+    formData.append('mobile', this.state.mobile);
+    formData.append('profession', this.state.profession);
+    formData.append('birthDate', this.state.birthDate);
+    formData.append('score', this.state.score);
+    // formData.append('lastZipCodeUpdate', this.state.lastZipCodeUpdate);
+    formData.append('status', this.state.status);
+
+    const user = await api.edit(formData);
     this.setState({
       message: "Usuario Editado",
     });
@@ -87,11 +145,28 @@ class UserEdit extends Component {
     // console.log("editado");
   };
 
-  // redirectIfNotUser() {
-  //   if (this.props.match.params.id !== localStorage.getItem("user"))  {
-  //     this.props.history.push('/main')
-  //   }
-  // }
+
+  redirectIfNotUser() {
+    if (this.props.match.params.id !== localStorage.getItem("user"))  {
+      this.props.history.push('/main')
+    }
+  }
+
+  handleSubmitIMG = e => {
+    e.preventDefault();
+ 
+    api
+      .saveNewThing(this.state)
+      .then(res => {
+        console.log('added: ', res);
+        // here you would redirect to some other page
+      })
+      .catch(err => {
+        console.log('Error while adding the thing: ', err);
+      });
+  };
+
+ 
 
   render() {
     return (
@@ -120,27 +195,10 @@ class UserEdit extends Component {
                   { readOnly: true, }
                 }
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="cep"
-                label="cep"
-                id="cep"
-                autoComplete="cep"
-                value={this.state.cep}
-                inputProps={
-                  { readOnly: true, }
-                }
-              />
-              <Link onClick={this.props.handleClick} href="/user/cep" variant="body2">
-                {"Preciso mudar o cep"}
-              </Link>
-
-              <TextField
-                variant="outlined"
-                margin="normal"
+             
+<TextField
+                
+               
                 required
                 fullWidth
                 name="username"
@@ -152,8 +210,7 @@ class UserEdit extends Component {
               />
 
               <TextField
-                variant="outlined"
-                margin="normal"
+              
                 required
                 fullWidth
                 name="cpf"
@@ -164,81 +221,93 @@ class UserEdit extends Component {
                 onChange={this.handleInput}
               />
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="name"
-                label="name"
-                id="name"
-                autoComplete="name"
-                value={this.state.name}
+<TextField
+      variant="outlined"
+      margin="normal"
+      required
+      fullWidth
+      name="cep"
+      label="cep"
+      id="cep"
+      autoComplete="cep"
+      value={this.state.cep}
+      inputProps={
+        { readOnly: true, }
+      }
+    />
+              <Link onClick={this.props.handleClick} href="/user/cep" variant="body2">
+              <Button color="secondary" variant="contained" size="large">"Preciso mudar o cep"</Button>
+              </Link>
+
+
+<Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="name"
+            name="name"
+            label="First name"
+            fullWidth
+            autoComplete="given-name"
+            value={this.state.name}
                 onChange={this.handleInput}
-              />
-
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="lastName"
-                label="lastName"
-                id="lastName"
-                autoComplete="lastName"
-                value={this.state.lastName}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="lastName"
+            name="lastName"
+            label="Last name"
+            fullWidth
+            autoComplete="family-name"
+            value={this.state.lastName}
                 onChange={this.handleInput}
-              />
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="street"
-                label="street"
-                id="street"
-                autoComplete="street"
-                value={this.state.street}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="street"
+            name="street"
+            label="Endereço"
+            fullWidth
+            autoComplete="rua"
+            value={this.state.street}
                 inputProps={
                   { readOnly: true, }
                 }
-              />
+          />
+        </Grid>
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="streetNumber"
-                label="streetNumber"
-                id="streetNumber"
-                autoComplete="streetNumber"
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="streetNumber"
+            name="streetNumber"
+            label="Número da rua"
+            fullWidth
+            autoComplete="streetNumber"
                 value={this.state.streetNumber}
                 onChange={this.handleInput}
-              />
-
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="streetComplement"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            fullWidth
+            name="streetComplement"
                 label="streetComplement"
                 id="streetComplement"
                 autoComplete="streetComplement"
                 value={this.state.streetComplement}
                 onChange={this.handleInput}
-              />
+          />
+        </Grid>
 
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+        <Grid item xs={12} sm={6}>
+          <TextField
+                     fullWidth
                 name="neighborhood"
                 label="neighborhood"
                 id="neighborhood"
@@ -247,13 +316,11 @@ class UserEdit extends Component {
                 inputProps={
                   { readOnly: true, }
                 }
-              />
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+                 fullWidth
                 name="city"
                 label="city"
                 id="city"
@@ -262,13 +329,13 @@ class UserEdit extends Component {
                 inputProps={
                   { readOnly: true, }
                 }
-              />
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+                     fullWidth
                 name="state"
                 label="state"
                 id="state"
@@ -277,80 +344,82 @@ class UserEdit extends Component {
                 inputProps={
                   { readOnly: true, }
                 }
-              />
 
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+                    fullWidth
                 name="phone"
                 label="phone"
                 id="phone"
                 autoComplete="phone"
                 value={this.state.phone}
                 onChange={this.handleInput}
-              />
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+                    fullWidth
                 name="mobile"
                 label="mobile"
                 id="mobile"
                 autoComplete="mobile"
                 value={this.state.mobile}
                 onChange={this.handleInput}
-              />
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="profession"
-                label="profession"
-                id="profession"
-                autoComplete="profession"
-                value={this.state.profession}
-                onChange={this.handleInput}
-              />
+          />
+        </Grid>
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+        <Grid item xs={12} sm={6}>
+          <TextField
+                    fullWidth
                 name="birthDate"
                 label="birthDate"
                 id="birthDate"
                 autoComplete="birthDate"
                 value={this.state.birthDate}
                 onChange={this.handleInput}
-              />
 
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField
+               fullWidth
+                name="profession"
+                label="profession"
+                id="profession"
+                autoComplete="profession"
+                value={this.state.profession}
+                onChange={this.handleInput}
+
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          {/* <TextField
+                 fullWidth
                 name="imgURL"
                 label="imgURL"
                 id="imgURL"
                 autoComplete="imgURL"
                 value={this.state.imgURL}
                 onChange={this.handleInput}
-              />
 
+          /> */}
+
+<input type='file' name="imgURL" id="imgURL" onChange={this.handleFile} />
+        </Grid>
+
+        </Grid>
 
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                color="primary"
                 style={submit}
                 onClick={this.handleSubmit}
               >
@@ -367,7 +436,7 @@ class UserEdit extends Component {
 }
 
 const paper = {
-  marginTop: "8px",
+  marginTop: "80px",
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -375,11 +444,13 @@ const paper = {
 
 const form = {
   width: '100%', // Fix IE 11 issue.
-  marginTop: "1px"
+  marginTop: "10px"
 }
 
 const submit = {
-  margin: "3px"
+  margin: "3px",
+  color: "white",
+  background: "#2A4654"
 }
 
 

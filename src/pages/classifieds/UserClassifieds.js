@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import api from '../../utils/api.util'
+import '../../App.css'
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -42,7 +43,7 @@ class UserClassifieds extends Component {
 
   render() {
     return (
-      <div>
+      <div className="page">
 
 
 <Container style={cardGrid} maxWidth="md">

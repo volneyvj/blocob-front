@@ -21,9 +21,9 @@ class SignupS extends Component {
     city: '',
     state: '',
     imgURL: 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
-    score: '0', 
+    score: 1, 
     lastZipCodeUpdate: Date().toLocaleString(),
-    status: '1'
+    status: '10'
   }
 
 
@@ -37,7 +37,6 @@ class SignupS extends Component {
             city: cepData.data.localidade,
             state: cepData.data.uf,
         })
-        console.log(this.state)
     } catch (error) {
         console.log(error);
     }
@@ -63,7 +62,6 @@ class SignupS extends Component {
   try {
       event.preventDefault();
    await this.getNeighborhood()
-    console.log(this.state)
     const user = await api.signup(this.state);
     this.props.handleLogin(true);
     this.props.history.push('/main')

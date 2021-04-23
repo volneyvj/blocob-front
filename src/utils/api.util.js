@@ -66,12 +66,32 @@ class Api {
   };
 
   edit = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post("/user/edit", payload);
-      // const { token } = data;
-      // localStorage.setItem('token', token);
+
+  // service,   oque eh isso????
+ 
+  // handleUpload(theFile) {
+  //   // console.log('file in service: ', theFile)
+  //   return service
+  //     .post('/upload', theFile)
+  //     .then(res => res.data)
+  //     .catch(errorHandler);
+  // }
+ 
+  // saveNewThing(newThing) {
+  //   // console.log('new thing is: ', newThing)
+  //   return service
+  //     .post('/things/create', newThing)
+  //     .then(res => res.data)
+  //     .catch(errorHandler);
+  // }
+
+  /// acaba aqui
+
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error.response.data));
       throw new Error(error);
     }
   };
@@ -87,7 +107,6 @@ class Api {
   };
 
   getUsersDetails = async (payload) => {
-    console.log(payload)
     try {
       const { data } = await this.api.post("/user/userdetails", payload);
       return data;
@@ -96,9 +115,9 @@ class Api {
     }
   };
 
-  getAllUsers = async () => {
+  getAllUsers = async (payload) => {
     try {
-      const { data } = await this.api.get("/user/allusers");
+      const { data } = await this.api.post("/user/allusers", payload);
       return data;
     } catch (error) {
       throw new Error(error);
@@ -126,7 +145,6 @@ class Api {
   };
 
   getSortedClassifieds = async (payload) => {
-    console.log(payload)
     try {
       const { data } = await this.api.post("/classified/list/sort", payload);
       return data;
@@ -136,6 +154,7 @@ class Api {
   };
 
   getClassifiedsFromUser = async (payload) => {
+    console.log(payload)
     try {
       const { data } = await this.api.post("/classified/list/user", payload);
       return data;

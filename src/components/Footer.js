@@ -34,8 +34,11 @@ class Footer extends Component {
 
  
       const footer = {
-        backgroundColor: "#cdd1cf",
+        backgroundColor: "#E4E6DC",
         padding: "6px",
+        position: "relative",
+        bottom: "0",
+        width: "100%",
       }
 
       const ficons = {

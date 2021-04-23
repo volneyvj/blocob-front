@@ -47,7 +47,7 @@ render(){
         } }/>
         <Route exact path='/comments' component = {Comments}/>
         <Route exact path='/users/' component = {Users}/>
-        <Route path='/users/userdetails/:id' component = {UserDetails}/>
+        <Route path='/users/userdetails/:userID' component = {UserDetails}/>
         <Route path='/users/useredit/:id' component = {UserEdit}/>
         <Route path='/userclassifieds/' component = {UserClassifieds}/>
         <Route path='/allclassifieds/' component = {Classifieds}/>

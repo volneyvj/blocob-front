@@ -1,17 +1,20 @@
 body {
   background-color: #EEEDEB;
-  font-family: 'Quicksand', sans-serif !important;
+  font-family: 'Quicksand', sans-serif !important;  
 }
-
 
 .App {
   text-align: center;
   font-family: 'Quicksand', sans-serif !important;
+    height: 100%;
+    position: relative;
 }
 
+.page {
+  min-height: 85vh;
+}
 
 .home-login {
-  
   margin: 10px, 50px;
 }
 
@@ -31,10 +34,8 @@ body {
 .mainFlex {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: flex-start;
-  align-items: space-around;
-  margin: 20px;
+  margin: 7px;
 }
 
 .userInfo {
@@ -43,9 +44,48 @@ body {
   position: relative;
   text-align: left;
   padding: 0;
-  margin: 0;
+  margin: 15px 3px;
 }
 
 #main-page {
   background-color: #EEEDEB;
+}
+
+hr {
+	border-top: 3px double #2A4654;
+  background-color: white;
+  width: 90%;
+  margin-left: 4px;
+}
+
+.strongHR {
+  height: 6px;
+  width: 85%;
+  border: none;
+  background-color: #2A4654;
+  margin: 50px 10px 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.small-img {
+  border-radius: 50%;
+  width: 22%;
+  margin: 6px;
+}
+
+.chat {
+  padding: 0;
+}
+
+.icon {
+  color: "gray"
+}
+
+.icon:hover {
+  color: red;
 }
