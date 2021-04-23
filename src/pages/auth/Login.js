@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 
-
 class Login extends Component {
   state = {
     email: '',
@@ -26,7 +25,6 @@ class Login extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`state da login ${this.state}`)
     try {
       await api.login(this.state);
       this.props.handleLogin(true);

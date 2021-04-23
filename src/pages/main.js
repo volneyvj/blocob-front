@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import api from "../utils/api.util";
 import Classifieds from "./classifieds/Classifieds";
+import Users from "./users/Users";
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -12,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import EmojiEventsOutlinedIcon from '@material-ui/icons/EmojiEventsOutlined';
 
 class Main extends Component {
   state = {
@@ -65,31 +67,35 @@ class Main extends Component {
       <>
         <section id="main-page">
          <div className="mainFlex">
-        
-          <div className="userInfo"> <img src={this.state.imgURL} width="25%"></img>
+        <Paper style={paper}>
+          <div className="userInfo"> <img style={userpic} src={this.state.imgURL}></img>
           <Typography variant="h5" align="left" color="textPrimary" >
                   {this.state.username}
-                  <br/>
+                  <hr></hr>
                   <b>{this.state.neighborhood}</b>
                   </Typography>
-                  Seu CEP: {this.state.cep} 
+                  <b>Seu CEP:</b> {this.state.cep} 
                   <br/>{this.state.street}
-                 <br/> Seu Score: {this.state.score}
-                  
+                  <hr></hr>
+                  <Typography variant="h6" fontWeight="400">
+                  <EmojiEventsOutlinedIcon fontSize="large"/>   Seu Score: {this.state.score} <EmojiEventsOutlinedIcon fontSize="large"/> 
+                  </Typography>
+                 <hr></hr>
                     <div style={mainbuttons}>
                       <Grid container spacing={2} justify="left">
                         <Grid item>
                         <Link href={`/users/useredit/${this.state.userid}`}>
                           <Button variant="contained" style={button}>
-                              Edit
+                              Editar Perfil
                           </Button>
                           </Link>
                         </Grid>
                       </Grid>
-                      
+                      <hr className="strongHR"></hr>
+                      <Users />
+               </div> 
                </div>
-               </div>
- 
+ </Paper>
           <div className=""></div>
           <div className="">         <Classifieds userNeighborhood={this.state.neighborhood} /> </div>
     
@@ -180,10 +186,14 @@ const submit = {
   margin: "3px"
 }
 
+const userpic = { 
+  width: "35%",
+  borderRadius: "22%"
+}
+
 const mainbuttons = {
   marginTop: "4px"
 }
-
 
 const cardGrid = {
   paddingTop: "8px",
@@ -212,7 +222,7 @@ const comofunciona = {
   
   const cardComo = {
     padding: "0x",
-    backgroundColor: "#d0d6d3"
+    backgroundColor: ""
   }
   
   const cardComo2 = {
@@ -228,5 +238,9 @@ const comofunciona = {
           height: 48,
           padding: '0 30px',
           boxShadow: '0 3px 5px 2px rgba(9, 92, 95, .3)'
+  }
+
+  const paper = {
+    background: "#E4E6DC"
   }
 export default Main;

@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: "90px"
+    marginBottom: "70px"
   },
 
   appStyle: {
@@ -125,7 +125,7 @@ const NavBar = props => {
   ];
 
 
-  const handleSubmit2 = async (event) => {
+  const logoutFunction = async (event) => {
     try {
       await api.logout();
       props.history.push('/')
@@ -238,7 +238,7 @@ const NavBar = props => {
               {localStorage.getItem("user") ?  (
                 <Button
                 variant="contained" className={classes.buttom}
-                onClick={() => handleSubmit2()}
+                onClick={() => logoutFunction()}
               >
                 LogOut   
              </Button>
