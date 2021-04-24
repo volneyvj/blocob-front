@@ -28,7 +28,8 @@ class SignupS extends Component {
 
 
   getNeighborhood = async () => {
-    const cep = this.state.cep.slice(0, -3)+"-"+this.state.cep.slice(-3)
+    // const cep = this.state.cep.slice(0, -3)+"-"+this.state.cep.slice(-3)
+    const cep = this.state.cep
     try {
    let cepData =  await  axios.get(`http://viacep.com.br/ws/${cep}/json/`)
    console.log(`info do api ${cepData}`)

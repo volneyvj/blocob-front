@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: "70px"
+    marginBottom: "76px"
   },
 
   appStyle: {
