@@ -112,8 +112,6 @@ class UserEdit extends Component {
 
 
     const formData = new FormData();
-    //  console.log(this.state.imgFile)
-     
     formData.append('imgURL', this.state.imgURL);
     formData.append('id', this.state.id);
     formData.append('email', this.state.email);
@@ -133,10 +131,8 @@ class UserEdit extends Component {
     formData.append('mobile', this.state.mobile);
     formData.append('profession', this.state.profession);
     formData.append('birthDate', this.state.birthDate);
-    formData.append('score', this.state.score);
     // formData.append('lastZipCodeUpdate', this.state.lastZipCodeUpdate);
-    formData.append('status', this.state.status);
-
+ 
     const user = await api.edit(formData);
     this.setState({
       message: "Usuario Editado",
@@ -151,21 +147,6 @@ class UserEdit extends Component {
       this.props.history.push('/main')
     }
   }
-
-  handleSubmitIMG = e => {
-    e.preventDefault();
- 
-    api
-      .saveNewThing(this.state)
-      .then(res => {
-        console.log('added: ', res);
-        // here you would redirect to some other page
-      })
-      .catch(err => {
-        console.log('Error while adding the thing: ', err);
-      });
-  };
-
  
 
   render() {
