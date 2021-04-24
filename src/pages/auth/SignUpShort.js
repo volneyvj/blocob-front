@@ -33,7 +33,7 @@ class SignupS extends Component {
     console.log(`cep: ${cep}`)
     try {
    let cepData =  await  axios.get(`http://viacep.com.br/ws/${cep}/json/unicode/`)
-   console.log(`info do api ${cepData}`)
+   console.log(`info do apppppppi ${cepData}`)
             this.setState({
             neighborhood: cepData.data.bairro,
             street: cepData.data.logradouro,
@@ -42,7 +42,7 @@ class SignupS extends Component {
         })
         return;
     } catch (error) {
-        console.log(error.response);
+        console.log(error);
     }
 }
 
@@ -63,10 +63,9 @@ class SignupS extends Component {
   }
 
   handleSubmit = async (event) => {
-
+    event.preventDefault();
+    console.log("antes")
   try {
-      event.preventDefault();
-      console.log("antes")
    await this.getNeighborhood()
    console.log("depois")
     const user = await api.signup(this.state);
