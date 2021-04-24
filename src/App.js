@@ -17,6 +17,7 @@ import AddClassifieds from './pages/classifieds/AddClassifieds';
 import DetailsClassifieds from './pages/classifieds/DetailsClassifieds';
 import EditClassifieds from './pages/classifieds/EditClassifieds';
 import Main from './pages/Main';
+import Forget from './pages/auth/Forget';
 
 
 
@@ -45,6 +46,7 @@ render(){
         if (this.state.loggedInUser === true) return <Redirect to="/main" /> 
         else return <Login {...props} handleLogin={this.handleLogin} />
         } }/>
+         <Route exact path='/forget' component = {Forget}/>
         <Route exact path='/comments' component = {Comments}/>
         <Route exact path='/users/' component = {Users}/>
         <Route path='/users/userdetails/:userID' component = {UserDetails}/>

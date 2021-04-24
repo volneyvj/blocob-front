@@ -84,7 +84,7 @@ class Classifieds extends Component {
     return (
       <>
 
-
+{(this.state.userClassifieds.length !== 0) ?  (
 
         <Container style={cardGrid} maxWidth="lg">
           <Typography variant="h4">Seus Classificados</Typography>
@@ -122,8 +122,14 @@ class Classifieds extends Component {
             ))}
 
           </Grid>
-          <p> </p>
-          <Grid container>
+</Container>
+       
+
+) : (
+<br/>
+)}
+
+<Grid container>
             <Grid item>
 
             <Link href={`/userclassifieds`}>
@@ -140,16 +146,15 @@ class Classifieds extends Component {
                           </Link>
             </Grid>
           </Grid>
-        </Container>
-
-
         <p></p>
+<hr style={hr}></hr>
+        {(this.state.userClassifieds.length !== 0) ?  (
 
         <Container style={cardGrid} maxWidth="lg">
           <Typography variant="h4">Classificados em Alta no Bairro</Typography>
           <Grid container spacing={4}>
             {this.state.sortedClassifieds.map((card) => (
-              <Grid item key={card._id} xs={12} sm={6} md={4}>
+              <Grid item key={card._id} xs={6} sm={6} md={4}>
                 <Card style={card}>
                   <CardMedia
                     style={cardMedia}
@@ -177,15 +182,18 @@ class Classifieds extends Component {
             ))}
           </Grid>
 
-          <Link href={`/allclassifieds/${this.state.query}`}>
+        </Container>
+
+        ) : (
+<br/>
+)}
+
+<Link href={`/allclassifieds/${this.state.query}`}>
                           <Button variant="contained" style={buttom}>
                               Ver Todos Classificados do Bairro
                           </Button>
                           </Link>
-        </Container>
-
-
-        <p></p>
+      
 
         {/* <div className="sorted-classifieds">
       Outtros classifiedS DO SEu bairro
@@ -240,6 +248,12 @@ const cardMedia = {
 
 const cardContent = {
   flexGrow: 1,
+}
+
+const hr = {
+  width: "300%",
+  marginLeft: "40px"
+
 }
 
 export default Classifieds

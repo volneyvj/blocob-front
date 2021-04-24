@@ -35,7 +35,7 @@ class SignupS extends Component {
             neighborhood: cepData.data.bairro,
             street: cepData.data.logradouro,
             city: cepData.data.localidade,
-            state: cepData.data.uf,
+            state: cepData.data.uf, 
         })
     } catch (error) {
         console.log(error);

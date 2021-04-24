@@ -34,7 +34,7 @@ class Users extends Component {
   render() {
     return (
       <div className="chat">
-      <Typography variant="h5">Usuários da {`${this.state.neighborhood}`}</Typography> 
+      <Typography variant="h6">Usuários da {`${this.state.neighborhood}`}</Typography> 
        <ul>
           {this.state.users.map(user => {
             return <li key={user._id}>

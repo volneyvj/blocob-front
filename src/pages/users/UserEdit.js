@@ -36,30 +36,6 @@ class UserEdit extends Component {
     status: 1,
   };
 
-  // handleFileUpload = e => {
-  //   // console.log('The file to be uploaded is: ', e.target.files[0]);
- 
-  //   const uploadData = new FormData();
-  //   // imageUrl => this name has to be the same as in the model since we pass
-  //   // req.body to .create() method when creating a new thing in '/api/things/create' POST route
-  //   uploadData.append('imgURL', e.target.files[0]);
-  //   this.setState({ imgURL: response.secure_url });
- 
-  
-  //   api
-  //     .handleUpload(uploadData)
-  //     .then(response => {
-  //       // console.log('response is: ', response);
-  //       // after the console.log we can see that response carries 'secure_url' which we can use to update the state
-  //       this.setState({ imgURL: response.secure_url });
-  //     })
-  //     .catch(err => {
-  //       console.log('Error while uploading the file: ', err);
-  //     });
-  // };
-
-  
-
   loadUser = async () => {
     const id = this.props.match.params.id;
     const user = await api.getUsersDetails({ id });
@@ -102,7 +78,7 @@ class UserEdit extends Component {
   };
 
   handleFile = e => {
-    this.setState({imgURL: e.target.files[0]})
+    this.setState({ imgURL: e.target.files[0] })
   }
 
   handleSubmit = async (event) => {
@@ -132,7 +108,7 @@ class UserEdit extends Component {
     formData.append('profession', this.state.profession);
     formData.append('birthDate', this.state.birthDate);
     // formData.append('lastZipCodeUpdate', this.state.lastZipCodeUpdate);
- 
+
     const user = await api.edit(formData);
     this.setState({
       message: "Usuario Editado",
@@ -143,11 +119,11 @@ class UserEdit extends Component {
 
 
   redirectIfNotUser() {
-    if (this.props.match.params.id !== localStorage.getItem("user"))  {
+    if (this.props.match.params.id !== localStorage.getItem("user")) {
       this.props.history.push('/main')
     }
   }
- 
+
 
   render() {
     return (
@@ -176,10 +152,8 @@ class UserEdit extends Component {
                   { readOnly: true, }
                 }
               />
-             
-<TextField
-                
-               
+
+              <TextField
                 required
                 fullWidth
                 name="username"
@@ -191,7 +165,7 @@ class UserEdit extends Component {
               />
 
               <TextField
-              
+
                 required
                 fullWidth
                 name="cpf"
@@ -202,186 +176,186 @@ class UserEdit extends Component {
                 onChange={this.handleInput}
               />
 
-<TextField
-      variant="outlined"
-      margin="normal"
-      required
-      fullWidth
-      name="cep"
-      label="cep"
-      id="cep"
-      autoComplete="cep"
-      value={this.state.cep}
-      inputProps={
-        { readOnly: true, }
-      }
-    />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="cep"
+                label="cep"
+                id="cep"
+                autoComplete="cep"
+                value={this.state.cep}
+                inputProps={
+                  { readOnly: true, }
+                }
+              />
               <Link onClick={this.props.handleClick} href="/user/cep" variant="body2">
-              <Button color="secondary" variant="contained" size="large">"Preciso mudar o cep"</Button>
+                <Button color="secondary" variant="contained" size="large">"Preciso mudar o cep"</Button>
               </Link>
 
 
-<Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="name"
-            name="name"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            value={this.state.name}
-                onChange={this.handleInput}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            value={this.state.lastName}
-                onChange={this.handleInput}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="street"
-            name="street"
-            label="Endereço"
-            fullWidth
-            autoComplete="rua"
-            value={this.state.street}
-                inputProps={
-                  { readOnly: true, }
-                }
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="streetNumber"
-            name="streetNumber"
-            label="Número da rua"
-            fullWidth
-            autoComplete="streetNumber"
-                value={this.state.streetNumber}
-                onChange={this.handleInput}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            name="streetComplement"
-                label="streetComplement"
-                id="streetComplement"
-                autoComplete="streetComplement"
-                value={this.state.streetComplement}
-                onChange={this.handleInput}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
-                     fullWidth
-                name="neighborhood"
-                label="neighborhood"
-                id="neighborhood"
-                autoComplete="neighborhood"
-                value={this.state.neighborhood}
-                inputProps={
-                  { readOnly: true, }
-                }
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-                 fullWidth
-                name="city"
-                label="city"
-                id="city"
-                autoComplete="city"
-                value={this.state.city}
-                inputProps={
-                  { readOnly: true, }
-                }
-
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
-                     fullWidth
-                name="state"
-                label="state"
-                id="state"
-                autoComplete="state"
-                value={this.state.state}
-                inputProps={
-                  { readOnly: true, }
-                }
-
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="name"
+                    name="name"
+                    label="First name"
                     fullWidth
-                name="phone"
-                label="phone"
-                id="phone"
-                autoComplete="phone"
-                value={this.state.phone}
-                onChange={this.handleInput}
-
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
+                    autoComplete="given-name"
+                    value={this.state.name}
+                    onChange={this.handleInput}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="lastName"
+                    name="lastName"
+                    label="Last name"
                     fullWidth
-                name="mobile"
-                label="mobile"
-                id="mobile"
-                autoComplete="mobile"
-                value={this.state.mobile}
-                onChange={this.handleInput}
-
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
+                    autoComplete="family-name"
+                    value={this.state.lastName}
+                    onChange={this.handleInput}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="street"
+                    name="street"
+                    label="Endereço"
                     fullWidth
-                name="birthDate"
-                label="birthDate"
-                id="birthDate"
-                autoComplete="birthDate"
-                value={this.state.birthDate}
-                onChange={this.handleInput}
+                    autoComplete="rua"
+                    value={this.state.street}
+                    inputProps={
+                      { readOnly: true, }
+                    }
+                  />
+                </Grid>
 
-          />
-        </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="streetNumber"
+                    name="streetNumber"
+                    label="Número da rua"
+                    fullWidth
+                    autoComplete="streetNumber"
+                    value={this.state.streetNumber}
+                    onChange={this.handleInput}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="streetComplement"
+                    label="streetComplement"
+                    id="streetComplement"
+                    autoComplete="streetComplement"
+                    value={this.state.streetComplement}
+                    onChange={this.handleInput}
+                  />
+                </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-               fullWidth
-                name="profession"
-                label="profession"
-                id="profession"
-                autoComplete="profession"
-                value={this.state.profession}
-                onChange={this.handleInput}
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="neighborhood"
+                    label="neighborhood"
+                    id="neighborhood"
+                    autoComplete="neighborhood"
+                    value={this.state.neighborhood}
+                    inputProps={
+                      { readOnly: true, }
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="city"
+                    label="city"
+                    id="city"
+                    autoComplete="city"
+                    value={this.state.city}
+                    inputProps={
+                      { readOnly: true, }
+                    }
 
-          />
-        </Grid>
+                  />
+                </Grid>
 
-        <Grid item xs={12} sm={6}>
-          {/* <TextField
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="state"
+                    label="state"
+                    id="state"
+                    autoComplete="state"
+                    value={this.state.state}
+                    inputProps={
+                      { readOnly: true, }
+                    }
+
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="phone"
+                    label="phone"
+                    id="phone"
+                    autoComplete="phone"
+                    value={this.state.phone}
+                    onChange={this.handleInput}
+
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="mobile"
+                    label="mobile"
+                    id="mobile"
+                    autoComplete="mobile"
+                    value={this.state.mobile}
+                    onChange={this.handleInput}
+
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="birthDate"
+                    label="birthDate"
+                    id="birthDate"
+                    autoComplete="birthDate"
+                    value={this.state.birthDate}
+                    onChange={this.handleInput}
+
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="profession"
+                    label="profession"
+                    id="profession"
+                    autoComplete="profession"
+                    value={this.state.profession}
+                    onChange={this.handleInput}
+
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  {/* <TextField
                  fullWidth
                 name="imgURL"
                 label="imgURL"
@@ -392,10 +366,10 @@ class UserEdit extends Component {
 
           /> */}
 
-<input type='file' name="imgURL" id="imgURL" onChange={this.handleFile} />
-        </Grid>
+                  <input type='file' name="imgURL" id="imgURL" onChange={this.handleFile} />
+                </Grid>
 
-        </Grid>
+              </Grid>
 
               <Button
                 type="submit"

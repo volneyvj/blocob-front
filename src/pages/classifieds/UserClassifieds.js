@@ -45,6 +45,7 @@ class UserClassifieds extends Component {
     return (
       <div className="page">
 
+{(this.state.userClassifieds.length !== 0) ?  (
 
 <Container style={cardGrid} maxWidth="md">
 <Typography>Seus Classificados</Typography>
@@ -82,9 +83,12 @@ class UserClassifieds extends Component {
             ))}
 
           </Grid>
-        <Link href={`/classifieds/add`}>Adicionar Novo Classificado </Link> 
+      
         </Container>
-
+) : (
+<br/>
+)}
+<Typography variant="h5"><Link href={`/classifieds/add`}>Adicionar Novo Classificado </Link> </Typography>
       </div>
     )
   }

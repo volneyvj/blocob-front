@@ -89,3 +89,6 @@ ul {
 .icon:hover {
   color: red;
 }
+.central {
+  margin: 2px 2px 2px 8px;
+}

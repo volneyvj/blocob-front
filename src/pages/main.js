@@ -94,8 +94,7 @@ class Main extends Component {
                </div> 
                </div>
  </Paper>
-          <div className=""></div>
-          <div className="">         <Classifieds userNeighborhood={this.state.neighborhood} /> </div>
+          <div className="central"><Classifieds userNeighborhood={this.state.neighborhood} /> </div>
     
          </div>
         
@@ -104,8 +103,8 @@ class Main extends Component {
 
           <section id="comofunciona">
             <Container style={comofunciona} maxWidth="lg">
-              <Grid container spacing={12}>
-                <Grid item xs={12} sm={6} md={4}>
+              <Grid container spacing={6}>
+                <Grid item xs={6} sm={6} md={4}>
                   <Card style={cardComo}>
                     <CardMedia
                       image="/images/produtos.jpeg"
@@ -123,7 +122,7 @@ class Main extends Component {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={6} sm={6} md={4}>
                   <Card style={cardComo2}>
                     <CardMedia
                       image="/images/servicos.jpeg"

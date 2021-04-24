@@ -4,6 +4,7 @@ class Api {
   constructor() {
     this.api = axios.create({
       baseURL: "https://api-blocob.herokuapp.com/",
+      //baseURL: "http://localhost:5000/",
     });
 
     this.api.interceptors.request.use(
@@ -124,6 +125,15 @@ class Api {
     }
   };
 
+  forget = async (payload) => {
+    try {
+      const { data } = await this.api.post("/user/forget", payload);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   // -----  /CLASSIFIED ROUTES    -----
 
   getClassifieds = async (payload) => {
@@ -154,7 +164,6 @@ class Api {
   };
 
   getClassifiedsFromUser = async (payload) => {
-    console.log(payload)
     try {
       const { data } = await this.api.post("/classified/list/user", payload);
       return data;
@@ -180,7 +189,7 @@ class Api {
       throw new Error(error);
     }
   };
-
+  
   editClassified = async (payload) => {
     try {
       const { data } = await this.api.post("/classified/edit", payload);

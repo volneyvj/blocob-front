@@ -9,10 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 
-class Login extends Component {
+class Forget extends Component {
   state = {
     email: '',
-    password: '',
     message: ''
   }
 
@@ -26,26 +25,16 @@ class Login extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await api.login(this.state);
-      this.props.handleLogin(true);
-      this.props.history.push('/main')
+      await api.forget(this.state);
+      this.props.history.push('/')
     } catch (error) {
       console.log(error);
       this.setState({
-        message: 'Erro ao logar'
+        message: 'Caso você tenha cadastro,um E-mail foi enviado para sua conta'
       })
     }
   }
 
-  handleSubmit2 = async (event) => {
-    event.preventDefault();
-    try {
-      await api.logout();
-      this.props.history.push('/')
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   render() {
     return (
@@ -55,7 +44,7 @@ class Login extends Component {
             <CssBaseline />
             <div style={paper}>
               <Typography component="h1" variant="h5">
-                Login
+                Esqueci minha senha
         </Typography>
               <form style={form} noValidate>
                 <TextField
@@ -71,20 +60,7 @@ class Login extends Component {
                   onChange={this.handleInput}
                   autoFocus
                 />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={this.state.password}
-                  onChange={this.handleInput}
-                />
-
+            
                 <Button
                   type="submit"
                   fullWidth
@@ -94,19 +70,8 @@ class Login extends Component {
                   onClick={this.handleSubmit}
                 >
                   Entrar 
-          </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="/forget" variant="body2">
-                      Esqueceu sua senha?
-              </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link onClick={this.props.handleClick} href="#" variant="body2">
-                      {"Ainda não tem uma conta? SignUp"}
-                    </Link>
-                  </Grid>
-                </Grid>
+              </Button>
+    
               </form>
             </div>
           </Container>
@@ -147,4 +112,4 @@ class Login extends Component {
 
      
 
-      export default Login
+      export default Forget

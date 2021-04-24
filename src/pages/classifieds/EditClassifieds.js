@@ -37,7 +37,7 @@ class EditClassifieds extends Component {
         investment: '',
         filePDF: '',
         address: '',
-        desiredDate: '',
+        desiredDate: "",
         // confirmedUsers: '',
         status: '1',
     }
@@ -81,10 +81,36 @@ class EditClassifieds extends Component {
     })
   }
 
+  handleFile = (e) => {
+    this.setState({ imgURL: e.target.files[0] });
+  };
+
+
   handleSubmit = async (event) => {
     event.preventDefault();
-    const classified = await api.editClassified(this.state);
-    console.log("editado");
+
+
+
+    const formData = new FormData();
+    formData.append('id', this.state.id);
+    formData.append('userID', this.state.userID);
+    formData.append('category', this.state.category);
+    formData.append('subcategory', this.state.subcategory);
+    formData.append('title', this.state.title);
+    formData.append('neighborhood', this.state.neighborhood);
+    formData.append('description', this.state.description);
+    formData.append('imgURL', this.state.imgURL);
+    formData.append('price', this.state.price);
+    formData.append('measure', this.state.measure);
+    formData.append('delivery', this.state.delivery);
+    formData.append('motive', this.state.motive);
+    formData.append('investment', this.state.investment);
+    formData.append('filePDF', this.state.filePDF);
+    formData.append('address', this.state.address);
+    formData.append('desiredDate', this.state.desiredDate);
+    formData.append('status', this.state.status);
+ 
+    const classified = await api.editClassified(formData);
     this.props.history.push("/main")
   }
 
@@ -281,18 +307,8 @@ class EditClassifieds extends Component {
                                 onChange={this.handleInput}
                             />
 
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="imgURL"
-                                label="imgURL"
-                                id="imgURL"
-                                autoComplete="imgURL"
-                                value={this.state.imgURL}
-                                onChange={this.handleInput}
-                            />
+<input type='file' name="imgURL" id="imgURL" onChange={this.handleFile} />
+
                             <Button
                                 type="submit"
                                 fullWidth
