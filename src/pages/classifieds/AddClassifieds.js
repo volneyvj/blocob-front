@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import api from "../../utils/api.util";
+import '../../App.css'
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -14,6 +15,12 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import { ToggleButton } from "@material-ui/lab";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+
+const stylebutton = {
+  variant: "contained",
+  name:"category",
+  value:"Produto",
+}
 
 class AddClassifieds extends Component {
   state = {
@@ -62,10 +69,11 @@ class AddClassifieds extends Component {
     });
   };
 
-  changeCategory = (event) => {
-    this.setState({
-      category: event.target.childNodes[0].data,
-    });
+  
+
+  handleAlignment = (event, newAlignment) => {
+    this.setState(
+      {category: newAlignment});
   };
 
   handleFile = (e) => {
@@ -108,30 +116,27 @@ class AddClassifieds extends Component {
               Adicionar Classificado
             </Typography>
             <form style={form} noValidate>
-              <Button
-                color={this.state.color}
-                variant="contained"
-                name="category"
-                value="Produto"
-                onClick={this.changeCategory}
-              >
-                Produto
-              </Button>
-              <Button
-                name="category"
-                value="Serviço"
-                onClick={this.changeCategory}
-              >
-                Serviço
-              </Button>
-              <Button
-                name="category"
-                value="Projeto"
-                onClick={this.changeCategory}
-              >
-                Projeto
-              </Button>
 
+
+            <ToggleButtonGroup 
+            
+      value={this.state.category}
+      exclusive
+      onChange={this.handleAlignment}
+      aria-label="text alignment"
+    >
+      <ToggleButton value="Produto" aria-label="left aligned">
+        Produto
+      </ToggleButton>
+      <ToggleButton  value="Serviço" aria-label="centered">
+        Serviço
+      </ToggleButton>
+      <ToggleButton  value="Projeto" aria-label="right aligned">
+        Projeto
+      </ToggleButton>
+    </ToggleButtonGroup>
+
+        
               <TextField
                 required
                 fullWidth
@@ -316,5 +321,6 @@ const formControl = {
 const selectEmpty = {
   marginTop: "2px",
 };
+
 
 export default AddClassifieds;
