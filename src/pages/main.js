@@ -17,8 +17,6 @@ import EmojiEventsOutlinedIcon from '@material-ui/icons/EmojiEventsOutlined';
 
 class Main extends Component {
   state = {
-    // users: [],
-    // neighborhood: '',
     email: "",
     username: "",
     name: "",
