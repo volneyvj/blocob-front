@@ -91,11 +91,11 @@ class AllClassifieds extends Component {
                 {this.state.classifieds.map((card) => (
                   <Grid item key={card._id} xs={12} sm={6} md={4}>
                     <Card style={card}>
-                      <CardMedia
-                        style={cardMedia}
-                        image="https://source.unsplash.com/random"
-                        title={card.title}
-                      />
+                   
+                    <CardMedia >
+                      <img src={card.imgURL} style={image} />
+                    </CardMedia>
+
                       <CardContent style={cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
                           {card.title}
@@ -148,6 +148,10 @@ const form = {
 
 const submit = {
   margin: "3px"
+}
+
+const image = {
+  width: "55%"
 }
 
 export default AllClassifieds

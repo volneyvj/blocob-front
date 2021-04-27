@@ -313,7 +313,6 @@ class EditClassifieds extends Component {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                color="primary"
                                 style={submit}
                                 onClick={this.handleSubmit}
                             >
@@ -352,7 +351,9 @@ const form = {
 }
 
 const submit = {
-  margin: "3px"
+  margin: "3px",
+  background: "#2A4654",
+  color: "white"
 }
 
 const formControl = {

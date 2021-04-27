@@ -190,7 +190,7 @@ class UserEdit extends Component {
                   { readOnly: true, }
                 }
               />
-              <Link onClick={this.props.handleClick} href="/user/cep" variant="body2">
+              <Link onClick={this.props.handleClick} href="/users/cep" variant="body2">
                 <Button color="secondary" variant="contained" size="large">"Preciso mudar o cep"</Button>
               </Link>
 

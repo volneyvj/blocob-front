@@ -84,116 +84,112 @@ class Classifieds extends Component {
     return (
       <>
 
-{(this.state.userClassifieds.length !== 0) ?  (
+        {(this.state.userClassifieds.length !== 0) ? (
 
-        <Container style={cardGrid} maxWidth="lg">
-          <Typography variant="h4">Seus Classificados</Typography>
-          <Grid container spacing={4}>
-            {this.state.userClassifieds.map((card) => (
-              <Grid item key={card._id} xs={6} sm={6} md={4}>
-                <Card style={card}>
-                  <CardMedia
-                    style={cardMedia}
-                    image={card.imgURL}
-                    title={card.title}
-                  />
-                  <CardContent style={cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.title}
-                    </Typography>
-                    <Typography>
-                      {card.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      <Link href={`/classifieds/details/${card._id}`}>
-                        Ver Detalhes
+          <Container style={cardGrid} maxWidth="lg">
+            <Typography variant="h4">Seus Classificados</Typography>
+            <Grid container spacing={2}>
+              {this.state.userClassifieds.map((card) => (
+                <Grid item key={card._id} xs={4} sm={4} md={4}>
+                  <Card style={card}>
+                    <CardMedia >
+                      <img src={card.imgURL} style={image} />
+                    </CardMedia>
+                    <CardContent style={cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card.title}
+                      </Typography>
+                      <Typography>
+                        {card.price}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        <Link href={`/classifieds/details/${card._id}`}>
+                          Ver Detalhes
                 </Link>
-                    </Button>
-                    <Button size="small" color="primary">
-                      <Link href={`/classifieds/edit/${card._id}`}>
-                        Editar Classificado
+                      </Button>
+                      <Button size="small" color="primary">
+                        <Link href={`/classifieds/edit/${card._id}`}>
+                          Editar Classificado
                 </Link>
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
 
-          </Grid>
-</Container>
-       
-
-) : (
-<br/>
-)}
-
-<Grid container>
-            <Grid item>
-
-            <Link href={`/userclassifieds`}>
-                          <Button variant="contained" style={buttom}>
-                              Ver todos seus Classificados
-                          </Button>
-                          </Link>
-              <p></p>
-
-              <Link href={`/classifieds/add`}>
-                          <Button variant="contained" style={buttom}>
-                              Adicionar Novo Classificado
-                          </Button>
-                          </Link>
             </Grid>
-          </Grid>
-        <p></p>
-<hr style={hr}></hr>
-        {(this.state.userClassifieds.length !== 0) ?  (
+          </Container>
 
-        <Container style={cardGrid} maxWidth="lg">
-          <Typography variant="h4">Classificados em Alta no Bairro</Typography>
-          <Grid container spacing={4}>
-            {this.state.sortedClassifieds.map((card) => (
-              <Grid item key={card._id} xs={6} sm={6} md={4}>
-                <Card style={card}>
-                  <CardMedia
-                    style={cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title={card.title}
-                  />
-                  <CardContent style={cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.title}
-                    </Typography>
-                    <Typography>
-                      {card.price} - {card.likes.length}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      <Link href={`/classifieds/details/${card._id}`}>
-                        Ver Detalhes
-                </Link>
-                    </Button>
-                  </CardActions>
-                </Card>
-
-              </Grid>
-            ))}
-          </Grid>
-
-        </Container>
 
         ) : (
-<br/>
-)}
+          <br />
+        )}
 
-<Link href={`/allclassifieds/${this.state.query}`}>
-                          <Button variant="contained" style={buttom}>
-                              Ver Todos Classificados do Bairro
+        <Grid container>
+          <Grid item>
+
+            <Link href={`/userclassifieds`}>
+              <Button variant="contained" style={buttom}>
+                Ver todos seus Classificados
                           </Button>
-                          </Link>
-      
+            </Link>
+            <p></p>
+
+            <Link href={`/classifieds/add`}>
+              <Button variant="contained" style={buttom}>
+                Adicionar Novo Classificado
+                          </Button>
+            </Link>
+          </Grid>
+        </Grid>
+        <p></p>
+        <hr style={hr}></hr>
+        {(this.state.userClassifieds.length !== 0) ? (
+
+          <Container style={cardGrid} maxWidth="lg">
+            <Typography variant="h4">Classificados em Alta no Bairro</Typography>
+            <Grid container spacing={2}>
+              {this.state.sortedClassifieds.map((card) => (
+                <Grid item key={card._id} xs={4} sm={4} md={4}>
+                  <Card style={card}>
+                  <CardMedia >
+                      <img src={card.imgURL} style={image} />
+                    </CardMedia>
+                    <CardContent style={cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card.title}
+                      </Typography>
+                      <Typography>
+                        {card.price} - {card.likes.length}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        <Link href={`/classifieds/details/${card._id}`}>
+                          Ver Detalhes
+                </Link>
+                      </Button>
+                    </CardActions>
+                  </Card>
+
+                </Grid>
+              ))}
+            </Grid>
+
+          </Container>
+
+        ) : (
+          <br />
+        )}
+
+        <Link href={`/allclassifieds/${this.state.query}`}>
+          <Button variant="contained" style={buttom}>
+            Ver Todos Classificados do Bairro
+                          </Button>
+        </Link>
+
 
         {/* <div className="sorted-classifieds">
       Outtros classifiedS DO SEu bairro
@@ -227,7 +223,7 @@ const buttom = {
   '&:hover': {
     backgroundColor: '#e57373',
     color: '#fff',
-},
+  },
 }
 
 const cardGrid = {
@@ -254,6 +250,10 @@ const hr = {
   width: "300%",
   marginLeft: "40px"
 
+}
+
+const image = {
+  width: "50%"
 }
 
 export default Classifieds

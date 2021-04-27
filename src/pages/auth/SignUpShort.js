@@ -21,19 +21,17 @@ class SignupS extends Component {
     city: '',
     state: '',
     imgURL: 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
-    score: 1, 
-    lastZipCodeUpdate: Date().toLocaleString(),
-    status: '10'
+    score: 10, 
+    lastZipCodeUpdate: "new",
+    status: '1'
   }
 
 
   getNeighborhood = async () => {
     // const cep = this.state.cep.slice(0, -3)+"-"+this.state.cep.slice(-3)
     const cep = this.state.cep
-    console.log(`cep: ${cep}`)
     try {
    let cepData =  await  axios.get(`https://viacep.com.br/ws/${cep}/json/unicode/`)
-   console.log(`info do apppppppi ${cepData}`)
             this.setState({
             neighborhood: cepData.data.bairro,
             street: cepData.data.logradouro,
@@ -64,10 +62,8 @@ class SignupS extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("antes")
   try {
    await this.getNeighborhood()
-   console.log("depois")
     const user = await api.signup(this.state);
     this.props.handleLogin(true);
     this.props.history.push('/main')

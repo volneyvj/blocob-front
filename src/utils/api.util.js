@@ -3,8 +3,8 @@ import axios from "axios";
 class Api {
   constructor() {
     this.api = axios.create({
-      baseURL: "https://api-blocob.herokuapp.com/",
-      //baseURL: "http://localhost:5000/",
+    baseURL: "https://api-blocob.herokuapp.com/",
+    // baseURL: "http://localhost:5000/",
     });
 
     this.api.interceptors.request.use(
@@ -53,7 +53,6 @@ class Api {
   };
 
   signup = async (payload) => {
-    console.log(payload)
     try {
       const { data } = await this.api.post("/user/signup", payload);
       const { id, token, neighborhood } = data;
@@ -67,30 +66,18 @@ class Api {
   };
 
   edit = async (payload) => {
-    console.log(payload)
     try {
       const { data } = await this.api.post("/user/edit", payload);
+    } catch (error) {
+      console.error(JSON.stringify(error.response.data));
+      throw new Error(error);
+    }
+  };
 
-  // service,   oque eh isso????
- 
-  // handleUpload(theFile) {
-  //   // console.log('file in service: ', theFile)
-  //   return service
-  //     .post('/upload', theFile)
-  //     .then(res => res.data)
-  //     .catch(errorHandler);
-  // }
- 
-  // saveNewThing(newThing) {
-  //   // console.log('new thing is: ', newThing)
-  //   return service
-  //     .post('/things/create', newThing)
-  //     .then(res => res.data)
-  //     .catch(errorHandler);
-  // }
-
-  /// acaba aqui
-
+  editCEP = async (payload) => {
+    console.log(payload)
+    try {
+      const { data } = await this.api.post("/user/editCEP", payload);
     } catch (error) {
       console.error(JSON.stringify(error.response.data));
       throw new Error(error);
@@ -240,7 +227,6 @@ class Api {
   };
 
   addComment = async (payload) => {
-    console.log(payload);
     try {
       const { data } = await this.api.post("/comment/add", payload);
       return data;

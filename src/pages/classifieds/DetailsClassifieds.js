@@ -167,10 +167,10 @@ class DetailsClassifieds extends Component {
             title={this.state.title}
             subheader={this.state.category}
           />
-          <CardMedia
-            style={media}
-            image={this.state.imgURL}
-          />
+         
+         <CardMedia >
+                      <img src={this.state.imgURL} style={image} />
+                    </CardMedia>
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
             {this.state.description}
@@ -318,6 +318,10 @@ const form = {
 
 const submit = {
   margin: "3px"
+}
+
+const image = {
+  width: "55%"
 }
 
 export default DetailsClassifieds;

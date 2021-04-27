@@ -15,11 +15,14 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import { ToggleButton } from "@material-ui/lab";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 
 const stylebutton = {
   variant: "contained",
-  name:"category",
-  value:"Produto",
+  name: "category",
+  value: "Produto",
 }
 
 class AddClassifieds extends Component {
@@ -69,11 +72,11 @@ class AddClassifieds extends Component {
     });
   };
 
-  
+
 
   handleAlignment = (event, newAlignment) => {
     this.setState(
-      {category: newAlignment});
+      { category: newAlignment });
   };
 
   handleFile = (e) => {
@@ -100,7 +103,7 @@ class AddClassifieds extends Component {
     formData.append('address', this.state.address);
     formData.append('desiredDate', this.state.desiredDate);
     formData.append('status', this.state.status);
- 
+
     const classified = await api.addClassified(formData);
     this.props.history.push("/main");
 
@@ -118,30 +121,30 @@ class AddClassifieds extends Component {
             <form style={form} noValidate>
 
 
-            <ToggleButtonGroup 
-            
-      value={this.state.category}
-      exclusive
-      onChange={this.handleAlignment}
-      aria-label="text alignment"
-    >
-      <ToggleButton value="Produto" aria-label="left aligned">
-        Produto
-      </ToggleButton>
-      <ToggleButton  value="Serviço" aria-label="centered">
-        Serviço
-      </ToggleButton>
-      <ToggleButton  value="Projeto" aria-label="right aligned">
-        Projeto
-      </ToggleButton>
-    </ToggleButtonGroup>
+              <ToggleButtonGroup
 
-        
+                value={this.state.category}
+                exclusive
+                onChange={this.handleAlignment}
+                aria-label="text alignment"
+              >
+                <ToggleButton style={toggle} value="Produto" aria-label="left aligned">
+                  Produto
+      </ToggleButton>
+                <ToggleButton value="Serviço" aria-label="centered">
+                  Serviço
+      </ToggleButton>
+                <ToggleButton value="Projeto" aria-label="right aligned">
+                  Projeto
+      </ToggleButton>
+              </ToggleButtonGroup>
+
+
               <TextField
                 required
                 fullWidth
                 id="subcategory"
-                label="subcategory"
+                label="SubCategoria"
                 name="subcategory"
                 autoComplete="subcategory"
                 value={this.state.subcategory}
@@ -161,7 +164,7 @@ class AddClassifieds extends Component {
                 required
                 fullWidth
                 name="title"
-                label="title"
+                label="Título"
                 id="title"
                 autoComplete="title"
                 value={this.state.title}
@@ -172,7 +175,7 @@ class AddClassifieds extends Component {
                 required
                 fullWidth
                 name="description"
-                label="description"
+                label="Descrição"
                 id="description"
                 autoComplete="description"
                 value={this.state.description}
@@ -183,7 +186,7 @@ class AddClassifieds extends Component {
                 required
                 fullWidth
                 name="price"
-                label="price"
+                label="Preço em R$"
                 id="price"
                 autoComplete="price"
                 value={this.state.price}
@@ -194,18 +197,14 @@ class AddClassifieds extends Component {
                 required
                 fullWidth
                 name="measure"
-                label="measure"
+                label="Medida (exemplo: kg, peça, unidade, hora...)"
                 id="measure"
                 autoComplete="measure"
                 value={this.state.measure}
                 onChange={this.handleInput}
               />
 
-              <Checkbox
-                checked={this.state.delivery}
-                onChange={this.handleInput}
-                inputProps={{ "aria-label": "primary checkbox" }}
-              />
+
 
               {this.state.category === "Projeto" ? (
                 <>
@@ -213,7 +212,7 @@ class AddClassifieds extends Component {
                     required
                     fullWidth
                     name="motive"
-                    label="motive"
+                    label="Motivo do Projeto"
                     id="motive"
                     autoComplete="motive"
                     value={this.state.motive}
@@ -226,25 +225,15 @@ class AddClassifieds extends Component {
                     required
                     fullWidth
                     name="investment"
-                    label="investment"
+                    label="Investimento Previsto em R$"
                     id="investment"
                     autoComplete="investment"
                     value={this.state.investment}
                     onChange={this.handleInput}
                   />
+                <label>Arquivo PDF +detalhes</label>
+              <input type='file' name="filePDF" id="filePDF" onChange={this.handleFile} />
 
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="filePDF"
-                    label="filePDF"
-                    id="filePDF"
-                    autoComplete="filePDF"
-                    value={this.state.filePDF}
-                    onChange={this.handleInput}
-                  />
 
                   <TextField
                     variant="outlined"
@@ -252,7 +241,7 @@ class AddClassifieds extends Component {
                     required
                     fullWidth
                     name="address"
-                    label="address"
+                    label="Local do Projeto"
                     id="address"
                     autoComplete="address"
                     value={this.state.address}
@@ -265,7 +254,7 @@ class AddClassifieds extends Component {
                     required
                     fullWidth
                     name="desiredDate"
-                    label="desiredDate"
+                    label="Data Desejada"
                     id="desiredDate"
                     autoComplete="desiredDate"
                     value={this.state.desiredDate}
@@ -274,16 +263,27 @@ class AddClassifieds extends Component {
                 </>
               ) : (
                 <div>
-                  <br />
+                
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.delivery}
+                    onChange={this.handleInput}
+                    name="delivery"
+                    color="secondary"
+                  />
+                }
+                label="Frete incluso?"
+              />
                 </div>
               )}
+              <label>Imagem</label> 
               <input type='file' name="imgURL" id="imgURL" onChange={this.handleFile} />
 
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                color="primary"
                 style={submit}
                 onClick={this.handleSubmit}
               >
@@ -311,6 +311,8 @@ const form = {
 
 const submit = {
   margin: "3px",
+  background: "#2A4654",
+  color: "white"
 };
 
 const formControl = {
@@ -321,6 +323,11 @@ const formControl = {
 const selectEmpty = {
   marginTop: "2px",
 };
+
+const toggle = {
+  color: "primary",
+  background: "primary"
+}
 
 
 export default AddClassifieds;

@@ -18,6 +18,7 @@ import DetailsClassifieds from './pages/classifieds/DetailsClassifieds';
 import EditClassifieds from './pages/classifieds/EditClassifieds';
 import Main from './pages/Main';
 import Forget from './pages/auth/Forget';
+import CepEdit from './pages/users/Cep';
 
 
 
@@ -51,6 +52,7 @@ render(){
         <Route exact path='/users/' component = {Users}/>
         <Route path='/users/userdetails/:userID' component = {UserDetails}/>
         <Route path='/users/useredit/:id' component = {UserEdit}/>
+        <Route path='/users/cep/' component = {CepEdit}/>
         <Route path='/userclassifieds/' component = {UserClassifieds}/>
         <Route path='/allclassifieds/' component = {Classifieds}/>
         <Route path='/classifieds/details/:id' component = {DetailsClassifieds}/>

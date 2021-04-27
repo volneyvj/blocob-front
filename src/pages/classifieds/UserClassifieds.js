@@ -53,11 +53,10 @@ class UserClassifieds extends Component {
             {this.state.userClassifieds.map((card) => (
               <Grid item key={card._id} xs={12} sm={6} md={4}>
                 <Card style={card}>
-                  <CardMedia
-                    style={cardMedia}
-                    image={card.imgURL}
-                    title={card.title}
-                  />
+             
+                <CardMedia >
+                      <img src={card.imgURL} style={image} />
+                    </CardMedia>
                   <CardContent style={cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.title}
@@ -111,6 +110,10 @@ const cardMedia = {
 
 const cardContent = {
   flexGrow: 1,
+}
+
+const image = {
+  width: "55%"
 }
 
 export default UserClassifieds
