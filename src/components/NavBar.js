@@ -42,7 +42,7 @@ background:  '#E4E6DC',
 
   logo: {
     margin: "8px",
-    width: "4%",
+    width: "100px",
     // height: "100px"
   },
 
@@ -124,7 +124,6 @@ const NavBar = props => {
     }
   ];
 
-
   const logoutFunction = async (event) => {
     try {
       await api.logout();
@@ -201,17 +200,18 @@ const NavBar = props => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={() => handleButtonClick("/allclassifieds/")}
               >Buscar
               {/* <Link href={`./allclassifieds/${this.state.query}`}></Link>
                 Buscar */}
           </Button>
-          <Button
+          {/* <Button
               variant="contained"
               color="secondary"
               className={classes.submit}
             >
               Busca Avançada
-          </Button>
+          </Button> */}
             </form>
             ) : (
               <div>

@@ -19,7 +19,7 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-
+import Paper from '@material-ui/core/Paper';
 
 class DetailsClassifieds extends Component {
   state = {
@@ -97,7 +97,7 @@ class DetailsClassifieds extends Component {
       likes: localStorage.getItem("user"),
     });
     if (hasLiked === true) {
-      this.setState({favorite: "secondary"})
+      this.setState({ favorite: "secondary" })
     }
   }
 
@@ -119,7 +119,8 @@ class DetailsClassifieds extends Component {
 
   addComment = async (event) => {
     event.preventDefault();
-    const classified = await api.addComment(this.state.newComment);
+    const { newComment } = this.state
+    const classified = await api.addComment(newComment);
     this.loadComments();
     this.setState({
       comment: ""
@@ -150,8 +151,8 @@ class DetailsClassifieds extends Component {
       expanded: !this.state.expanded
     });
   };
-    
-  
+
+
   render() {
     return (
       <div className="page">
@@ -160,71 +161,71 @@ class DetailsClassifieds extends Component {
           <CardHeader
             avatar={
               <Avatar style={avatar}>
-             {this.state.neighborhood}
-          </Avatar>
+                {this.state.neighborhood}
+              </Avatar>
             }
-          
+
             title={this.state.title}
             subheader={this.state.category}
           />
-         
-         <CardMedia >
-                      <img src={this.state.imgURL} style={image} />
-                    </CardMedia>
+
+          <CardMedia >
+            <img src={this.state.imgURL} style={image} />
+          </CardMedia>
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-            {this.state.description}
-        </Typography>
+              {this.state.description}
+            </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton 
-            color={this.state.favorite} 
-            onClick={() => this.submitLike()}
-            aria-label="add to favorites">
-              <FavoriteIcon 
-                
+            <IconButton
+              color={this.state.favorite}
+              onClick={() => this.submitLike()}
+              aria-label="add to favorites">
+              <FavoriteIcon
+
               /> {this.state.likes.length}
             </IconButton>
-            <IconButton 
-              style={expandicon}         
+            <IconButton
+              style={expandicon}
               onClick={() => this.handleExpandClick()}
               aria-label="ver +"
             >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-          
+
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph>Username: <Link href={`/users/userdetails/${this.state.userID}`}>{this.state.userID}</Link></Typography>
               <Typography paragraph>
-              Preço: {this.state.price} por {this.state.measure} -   Entrega: {this.state.delivery}
-          </Typography>
+                Preço: {this.state.price} por {this.state.measure} -   Entrega: {this.state.delivery}
+              </Typography>
               <Typography paragraph>
-                  
-          Motivo:  {this.state.motive}
-          <br/>
+
+                Motivo:  {this.state.motive}
+                <br />
           Investimento Estimado:{this.state.investment}
-          <br/>
+                <br />
           Endereço do Projeto:  {this.state.address}
-          <br/>
+                <br />
           Data Esperada para ínicio: {this.state.desiredDate}
-          </Typography>
+              </Typography>
               <Typography>
-             Download filePDF {this.state.filePDF}
-          </Typography>
+                Download filePDF {this.state.filePDF}
+              </Typography>
             </CardContent>
-          </Collapse>    
- 
-           
+          </Collapse>
+
+
         </Card>
 
-      
-      
+
+
 
         {this.state.userID === localStorage.getItem("user") ? (
           <div>
-           
+
           </div>
         ) : (
           <div>
@@ -241,8 +242,8 @@ class DetailsClassifieds extends Component {
                 autoFocus
                 onChange={this.handleInput}
               />
-<br/>
-            <Button
+              <br />
+              <Button
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -252,16 +253,18 @@ class DetailsClassifieds extends Component {
                 Enviar Comentário
           </Button>
             </form>
-        
+
           </div>
         )}
+      <p></p>
 
-        <ul>
         <Typography variant="h3">Comentários</Typography>
-          {this.state.comments.map((comment) => {
+        <Paper style={paper}>  
+        <ul>
+        {this.state.comments.map((comment) => {
             return (
               <li key={comment._id}>
-                {comment.comment}- {comment.category}- {comment.likes}
+                {comment.comment} <i>De: {comment.userID.username}</i>
                 {/* <form><input name="id" type="hidden" value={this.state.id}/>
               <button type="submit" onClick={this.submitLike}>CURTIR</button>
               </form> */}
@@ -269,11 +272,13 @@ class DetailsClassifieds extends Component {
             );
           })}
         </ul>
-        <div>
-            <Link href="/main">Voltar</Link>
-          </div>
+        </Paper>
+          
+        <div><p></p>
+          <Link href="/main">Voltar</Link>
+        </div>
       </div>
-      
+
     );
   }
 }
@@ -324,4 +329,8 @@ const image = {
   width: "55%"
 }
 
+const paper = {
+  width: "50%",
+  marginLeft: "330px"
+}
 export default DetailsClassifieds;

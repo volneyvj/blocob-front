@@ -33,18 +33,6 @@ class Classifieds extends Component {
     return { neighborhood: props.userNeighborhood }
   }
 
-  loadClassifieds = async () => {
-    const { neighborhood, query } = this.state
-    try {
-      const classifieds = await api.getClassifieds({ neighborhood, query })
-      this.setState({
-        classifieds: classifieds
-      })
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
 
   loadSortedClassifieds = async () => {
     const { neighborhood } = this.state
@@ -74,7 +62,6 @@ class Classifieds extends Component {
 
 
   componentDidMount = async () => {
-    await this.loadClassifieds();
     await this.loadSortedClassifieds();
     await this.loadClassifiedsFromUser();
   }
@@ -253,7 +240,8 @@ const hr = {
 }
 
 const image = {
-  width: "50%"
+  width: "50%",
+  height: "150px"
 }
 
 export default Classifieds

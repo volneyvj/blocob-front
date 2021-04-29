@@ -80,7 +80,7 @@ class Main extends Component {
                   </Typography>
                  <hr></hr>
                     <div style={mainbuttons}>
-                      <Grid container spacing={2} justify="left">
+                      <Grid container spacing={2}>
                         <Grid item>
                         <Link href={`/users/useredit/${this.state.userid}`}>
                           <Button variant="contained" style={button}>

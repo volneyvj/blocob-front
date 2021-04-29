@@ -47,8 +47,12 @@ class CepEdit extends Component {
 
   handleInput = (event) => {
     const { name, value } = event.target;
+    var today = new Date();
+    var zipdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    
     this.setState({
       [name]: value,
+      lastZipCodeUpdate: zipdate,
     });
   };
 
@@ -84,12 +88,6 @@ class CepEdit extends Component {
     // const { email, cpf, username, password, name, lastName, cep, street, streetNumber, streetComplement, neighborhood, city, state, phone,
     //   mobile, birthDate, profession, imgURL, score, lastZipCodeUpdate, status } = this.state;
     event.preventDefault();
-    var today = new Date()
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.setState({
-        lastZipCodeUpdate: this.date,
-      })
-
     const user = await api.editCEP(this.state);
     this.setState({
       message: "CEP Editado",

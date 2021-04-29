@@ -3,8 +3,8 @@ import axios from "axios";
 class Api {
   constructor() {
     this.api = axios.create({
-    baseURL: "https://api-blocob.herokuapp.com/",
-    // baseURL: "http://localhost:5000/",
+    // baseURL: "https://api-blocob.herokuapp.com/",
+    baseURL: "http://localhost:5000/",
     });
 
     this.api.interceptors.request.use(
@@ -220,15 +220,17 @@ class Api {
     // console.log(`ESTAMOS FALANDO DESSE: ${payload}`)
     try {
       const { data } = await this.api.post("/comment/list", { payload });
+      console.log(data)
       return data;
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  addComment = async (payload) => {
+  addComment = async (comentsData) => {
+    console.log(comentsData)
     try {
-      const { data } = await this.api.post("/comment/add", payload);
+      const { data } = await this.api.post("/comment/add", comentsData);
       return data;
     } catch (error) {
       throw new Error(error);

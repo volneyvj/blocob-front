@@ -14,8 +14,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+const queryString = require('query-string');
+
+
 
 class AllClassifieds extends Component {
+  
   
   constructor (props) {
     super(props) 
@@ -23,17 +27,28 @@ class AllClassifieds extends Component {
     classifieds: [],
     neighborhood: localStorage.getItem("neighborhood"),
     userID: localStorage.getItem("user"),
-    query: this.props.match.params.query,
+    query: this.props.location.search.match.query,
   }
   }
   
   loadAllClassifieds = async () => {
+    const { query } = queryString.parse(this.props.location.search);
+    console.log(query)
     const { neighborhood } = this.state
+   
     try {
-    const classifieds = await api.getClassifieds({neighborhood})
+   
+      let classifieds = await api.getClassifieds({neighborhood}) 
+      this.setState({
+        classifieds: classifieds
+      })
+    
+    if (query !== undefined) {
+    classifieds = await api.getSearchedClassifieds({neighborhood, query})
     this.setState({
       classifieds: classifieds
-    })
+     })
+    }
   }
   catch (error) {
     console.log(error);
@@ -51,42 +66,15 @@ class AllClassifieds extends Component {
     });
   };
 
-  handleSearch = async (event) => {
-    event.preventDefault();
-    const search = await api.getSearchedClassifieds(this.state.query);
-  };
-
-
-
+ 
   render() {
     return (
       <div className="page">
 
     <Container style={cardGrid} maxWidth="md">
 
-    <form style={form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                id="query"
-                label="Buscar Classificado"
-                name="query"
-                autoFocus
-                onChange={this.handleInput}
-              />
-              <br/>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                style={submit}
-                onClick={() => this.handleSearch}
-              >
-                Buscar
-          </Button>
-            </form>
-
-    <Typography>Todos Classificados do Bairro</Typography>
+  
+    <Typography>Classificados do Bairro</Typography>
               <Grid container spacing={4}>
                 {this.state.classifieds.map((card) => (
                   <Grid item key={card._id} xs={12} sm={6} md={4}>
