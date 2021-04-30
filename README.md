@@ -13,11 +13,6 @@
 This Api was created as part of IRONHACK`s WebDev bootcamp final project. Class of Oct/20.
 Created by [Volney Faustini]
 
-
-[![NPM Version][ "version": "0.1.0",]
-[![Node Version][ "version": "12.16.0",]
-
-
 ![](public/images/shot.png)
 
 ## Installation
@@ -26,6 +21,9 @@ Created by [Volney Faustini]
 make install
 npm start
 ```
+
+[![NPM Version][ "version": "0.1.0",]
+[![Node Version][ "version": "12.16.0",]
 
 ## Usage example
 
@@ -37,14 +35,12 @@ You can visualize and interact with others user and classifieds, only from your 
 
 Volney Koudsi Faustini – [@Linkedin](https://www.linkedin.com/in/volney-koudsi-faustini/) – volney.faustini@gmail.com
 
-[https://github.com/volneyvj/blocob-front](https://github.com/volneyvj/blocob-front)
-
 API Server GitHub link:
 [https://github.com/volneyvj/blocob-api](https://github.com/volneyvj/blocob-api)
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
+1. Fork it (<https://github.com/volneyvj/blocob-front/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
