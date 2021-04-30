@@ -2,7 +2,7 @@
 > BlocoB is an express rest api social media for your neighbors only
 
 # Deployed at: 
-[https://github.com/volneyvj/blocob-front](https://github.com/volneyvj/blocob-front)
+[https://blocob.herokuapp.com/](https://blocob.herokuapp.com/)
 
 ## Features
 
