@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { withRouter } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
+import { HashLink as Link } from 'react-router-hash-link';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,7 +43,7 @@ background:  '#E4E6DC',
 
   logo: {
     margin: "8px",
-    width: "100px",
+    width: "50px",
     // height: "100px"
   },
 
@@ -113,6 +114,7 @@ const NavBar = props => {
     {
       menuTitle: "Como Funciona",
       pageURL: "/#comofunciona"
+      
     },
     {
       menuTitle: "Buscar um Classificado",
@@ -219,20 +221,7 @@ const NavBar = props => {
            )
               }
           
-
-              <Button
-                variant="contained" className={classes.buttom}
-                onClick={() => handleButtonClick("/#comofunciona")}
-              >
-                Como Funciona
-              </Button>
-              <Button
-                variant="contained" className={classes.buttom}
-                onClick={() => handleButtonClick("/#singup")}
-              >
-                Buscar um Classificado
-              </Button>
-
+          
 
 
               {localStorage.getItem("user") ?  (
@@ -243,12 +232,32 @@ const NavBar = props => {
                 LogOut   
              </Button>
               ) : (
+<>
+                <Link to="/#comofunciona">
               <Button
                 variant="contained" className={classes.buttom}
-                onClick={() => handleButtonClick("/#comofunciona")}
+              >
+                Como Funciona
+              </Button>
+              </Link>
+              <Link to="/#signup">
+              <Button
+                variant="contained" className={classes.buttom}
+              >
+                Buscar um Classificado
+              </Button>
+              </Link>
+
+
+
+                <Link to="/#comofunciona">
+              <Button
+                variant="contained" className={classes.buttom}
               >
                 ABOUT   
              </Button>
+             </Link>
+             </>
               )
               }
             </div>

@@ -20,6 +20,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import { Assistant } from "@material-ui/icons";
 
 class DetailsClassifieds extends Component {
   state = {
@@ -161,12 +162,12 @@ class DetailsClassifieds extends Component {
           <CardHeader
             avatar={
               <Avatar style={avatar}>
-                {this.state.neighborhood}
+                {this.state.category}
               </Avatar>
             }
 
             title={this.state.title}
-            subheader={this.state.category}
+            subheader={this.state.subcategory}
           />
 
           <CardMedia >
@@ -197,24 +198,28 @@ class DetailsClassifieds extends Component {
 
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph>Username: <Link href={`/users/userdetails/${this.state.userID}`}>{this.state.userID}</Link></Typography>
+              <Typography paragraph>Username: <Link href={`/users/userdetails/${this.state.userID}`}>{this.state.userID.username}</Link></Typography>
               <Typography paragraph>
-                Preço: {this.state.price} por {this.state.measure} -   Entrega: {this.state.delivery}
-              </Typography>
-              <Typography paragraph>
-
-                Motivo:  {this.state.motive}
-                <br />
-          Investimento Estimado:{this.state.investment}
-                <br />
-          Endereço do Projeto:  {this.state.address}
-                <br />
-          Data Esperada para ínicio: {this.state.desiredDate}
-              </Typography>
-              <Typography>
-                Download filePDF {this.state.filePDF}
+                Preço: {this.state.price} por {this.state.measure}
               </Typography>
             </CardContent>
+            {(this.state.motive !== "") ? (
+              <CardContent>
+
+                <Typography paragraph>
+                  Motivo:  {this.state.motive}
+                  <br />
+          Investimento Estimado:{this.state.investment}
+                  <br />
+          Endereço do Projeto:  {this.state.address}
+                  <br />
+          Data Esperada para ínicio: {this.state.desiredDate}
+                </Typography>
+              </CardContent>
+            ) : (
+              <div></div>
+            )
+            }
           </Collapse>
 
 
@@ -256,24 +261,25 @@ class DetailsClassifieds extends Component {
 
           </div>
         )}
-      <p></p>
+        <p></p>
 
         <Typography variant="h3">Comentários</Typography>
-        <Paper style={paper}>  
-        <ul>
-        {this.state.comments.map((comment) => {
-            return (
-              <li key={comment._id}>
-                {comment.comment} <i>De: {comment.userID.username}</i>
-                {/* <form><input name="id" type="hidden" value={this.state.id}/>
+        <Paper style={paper}>
+          <ul>
+            {this.state.comments.map((comment) => {
+              return (
+                <li key={comment._id}>
+                  <img style={userimg} src={comment.userID.imgURL} /> <i>{comment.userID.username}</i> 
+                   :  <b> {comment.comment} </b>
+                  {/* <form><input name="id" type="hidden" value={this.state.id}/>
               <button type="submit" onClick={this.submitLike}>CURTIR</button>
               </form> */}
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
         </Paper>
-          
+
         <div><p></p>
           <Link href="/main">Voltar</Link>
         </div>
@@ -332,5 +338,9 @@ const image = {
 const paper = {
   width: "50%",
   marginLeft: "330px"
+}
+
+const userimg = {
+  width: "5%"
 }
 export default DetailsClassifieds;

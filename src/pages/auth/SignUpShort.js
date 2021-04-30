@@ -23,6 +23,7 @@ class SignupS extends Component {
     imgURL: 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
     score: 10, 
     lastZipCodeUpdate: "new",
+    profession: "não informado",
     status: '1'
   }
 

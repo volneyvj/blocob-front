@@ -74,7 +74,8 @@ ul {
 
 .small-img {
   border-radius: 50%;
-  width: 22%;
+  width: 55px;
+  height: 55px;
   margin: 6px;
 }
 

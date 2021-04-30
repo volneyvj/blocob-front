@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const queryString = require('query-string');
 
 
@@ -89,9 +90,10 @@ class AllClassifieds extends Component {
                           {card.title}
                         </Typography>
                         <Typography>
-                         {card.price} - {card.likes.length}
+                         R$ {card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/{card.measure}
                         </Typography>
                       </CardContent>
+                      <CardContent style={heart}><FavoriteIcon color="primary" /> {card.likes.length}</CardContent>
                       <CardActions>
                         <Button size="small" color="primary">
                         <Link href={`/classifieds/details/${card._id}`}>
@@ -139,7 +141,12 @@ const submit = {
 }
 
 const image = {
-  width: "55%"
+  width: "100px",
+  height: "120px"
+}
+
+const heart = {
+  padding: "5px"
 }
 
 export default AllClassifieds

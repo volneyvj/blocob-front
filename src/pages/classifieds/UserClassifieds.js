@@ -113,7 +113,8 @@ const cardContent = {
 }
 
 const image = {
-  width: "55%"
+  width: "100px",
+  height: "120px"
 }
 
 export default UserClassifieds

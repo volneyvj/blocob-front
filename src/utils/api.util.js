@@ -4,7 +4,7 @@ class Api {
   constructor() {
     this.api = axios.create({
     baseURL: "https://api-blocob.herokuapp.com/",
-    // baseURL: "http://localhost:5000/",
+    //baseURL: "http://localhost:5000/",
     });
 
     this.api.interceptors.request.use(
@@ -120,6 +120,45 @@ class Api {
       throw new Error(error);
     }
   };
+
+
+  rankUser = async (payload) => {
+    try {
+      const { data } = await this.api.post("/user/rank", payload);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  checkRankUser = async (payload) => {
+    try {
+      const { data } = await this.api.post("user/checkrank", payload);
+      return data;  
+    } catch (error) {
+    throw new Error(error);
+  }
+  };
+
+  disrankUser = async (payload) => {
+    try {
+      const { data } = await this.api.post("/user/disrank", payload);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  checkDislikeUser = async (payload) => {
+    try {
+      const { data } = await this.api.post("user/checkdisrank", payload);
+      return data;  
+    } catch (error) {
+    throw new Error(error);
+  }
+  };
+
+
 
   // -----  /CLASSIFIED ROUTES    -----
 

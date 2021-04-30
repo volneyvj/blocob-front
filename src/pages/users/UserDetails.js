@@ -19,6 +19,8 @@ import { Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import LocationOffIcon from '@material-ui/icons/LocationOff';
+import BuildIcon from '@material-ui/icons/Build';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 
 
 class User extends Component {
@@ -46,6 +48,8 @@ class User extends Component {
     lastZipCodeUpdate: '',
     status: '',
     classifieds: [],
+    favorite: "default",
+    denuncia: "default",
   }
 
   loadUser = async () => {
@@ -87,9 +91,32 @@ class User extends Component {
     }
   }
 
+
+  checkIfLiked = async () => {
+    const hasLiked = await api.checkRankUser({
+      id: this.props.match.params.userID,
+      likes: localStorage.getItem("user"),
+    });
+    if (hasLiked === true) {
+      this.setState({ favorite: "secondary" })
+    }
+  }
+
+  checkDislike = async () => {
+    const hasLiked = await api.checkDislikeUser({  
+      id: this.props.match.params.userID,
+      likes: localStorage.getItem("user"),
+    });
+    if (hasLiked === true) {
+      this.setState({ denuncia: "secondary" })
+    }
+  }
+
+
   componentDidMount = () => {
     this.loadUser();
     this.loadClassifiedsFromUser();
+    this.checkIfLiked();
   }
 
 
@@ -98,6 +125,43 @@ class User extends Component {
       expanded: !this.state.expanded
     });
   };
+
+  submitLike = async () => {
+    const liked = await api.rankUser({
+      id: this.props.match.params.userID,
+      likes: localStorage.getItem("user"),
+    });
+    if (liked === false) {
+      this.setState({
+        favorite: ""
+      })
+    }
+    else {
+      this.setState({
+        favorite: "secondary"
+      })
+    }
+    this.loadUser();
+  };
+
+  submitDislike = async () => {
+    const liked = await api.disrankUser({
+      id: this.props.match.params.userID,
+      likes: localStorage.getItem("user"),
+    });
+    if (liked === false) {
+      this.setState({
+        denuncia: ""
+      })
+    }
+    else {
+      this.setState({
+        denuncia: "primary"
+      })
+    }
+    this.loadUser();
+  };
+
 
 
   render() {
@@ -120,10 +184,12 @@ class User extends Component {
             image={this.state.imgURL}
           />
           <CardContent>
+         <Typography variant="h5"> 
+            {this.state.username} 
+            </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-            {this.state.username} <br/>
             CEP: {this.state.cep} - {this.state.neighborhood}
-            <br/> - {this.state.profession}
+            <br/> <BuildIcon fontSize="small"/> {this.state.profession}
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
@@ -134,12 +200,32 @@ class User extends Component {
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>Endereço: {this.state.street} - {this.state.city}</Typography>
+            <CardContent style={cardContent}>
+              <Typography>Endereço: {this.state.street} - {this.state.city}</Typography>
             </CardContent>
-            <CardContent><ThumbUpIcon className="icon" onClick={()=> this.handleExpandClick()}/> <LocationOffIcon className="icon" onClick={()=> this.handleExpandClick()}  /></CardContent>
+            <CardContent style={cardContent}>
+              <Typography>Nome: {this.state.name} {this.state.lastName}</Typography>
+            </CardContent>
+            <CardContent style={cardContent}>
+              <Typography color="primary"> <WhatsAppIcon /> {this.state.mobile} </Typography>
+            </CardContent>
+            <CardContent>
+            
+ <IconButton
+              color={this.state.favorite}
+              onClick={() => this.submitLike()}
+              aria-label="add to favorites">
+              <ThumbUpIcon/> 
+            </IconButton>
+
+            <IconButton
+              color={this.state.denuncia}
+              onClick={() => this.submitDislike()}
+              aria-label="add to favorites">
+              <LocationOffIcon/> 
+            </IconButton>
+          </CardContent>
             
           </Collapse>
         </Card>
@@ -148,6 +234,9 @@ class User extends Component {
      
                <Grid style={classifiedStyle} item xs={6} sm={6} md={6}>
         <Typography variant="h4">Classificados do {this.state.username}</Typography>
+        <br/>
+
+        {this.state.classifieds.length ? (
           <Grid container spacing={4}>
             {this.state.classifieds.map((card) => (
               <Grid item key={card._id} xs={6} sm={6} md={4}>
@@ -175,9 +264,12 @@ class User extends Component {
                 </Card>
               </Grid>
             ))}
-
           </Grid>
+          ) : (
 
+<div>Não há classificados registrados </div>
+        )
+        }
 
         </Grid>
        
@@ -192,7 +284,8 @@ class User extends Component {
 const root = {
   maxWidth: 345,
   marginLeft: "0px",
-  marginTop: "20px"
+  marginTop: "20px",
+  background: "#E4E6DC"
 }
 
 const media = {
@@ -249,11 +342,13 @@ const cardMedia = {
 
 const cardContent = {
   flexGrow: 1,
+  padding: "4px"
 }
 
 const classifiedStyle = {
   margin: "30px",
 }
+
 
 
 export default User

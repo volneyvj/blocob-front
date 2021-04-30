@@ -184,7 +184,7 @@ const submit = {
 }
 
 const userpic = { 
-  width: "35%",
+  width: "45%",
   borderRadius: "22%"
 }
 

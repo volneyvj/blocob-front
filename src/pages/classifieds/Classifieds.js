@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class Classifieds extends Component {
 
@@ -73,11 +74,12 @@ class Classifieds extends Component {
 
         {(this.state.userClassifieds.length !== 0) ? (
 
-          <Container style={cardGrid} maxWidth="lg">
-            <Typography variant="h4">Seus Classificados</Typography>
-            <Grid container spacing={2}>
+          <Container style={cardGrid} maxWidth="md">
+            <Typography variant="h4">Meus Classificados</Typography>
+            <br/>
+            <Grid container spacing={6}>
               {this.state.userClassifieds.map((card) => (
-                <Grid item key={card._id} xs={4} sm={4} md={4}>
+                <Grid item key={card._id} xs={4}>
                   <Card style={card}>
                     <CardMedia >
                       <img src={card.imgURL} style={image} />
@@ -87,7 +89,7 @@ class Classifieds extends Component {
                         {card.title}
                       </Typography>
                       <Typography>
-                        {card.price}
+                      R$ {card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/{card.measure}
                       </Typography>
                     </CardContent>
                     <CardActions>
@@ -135,11 +137,12 @@ class Classifieds extends Component {
         <hr style={hr}></hr>
         {(this.state.userClassifieds.length !== 0) ? (
 
-          <Container style={cardGrid} maxWidth="lg">
+          <Container style={cardGrid} maxWidth="md">
             <Typography variant="h4">Classificados em Alta no Bairro</Typography>
-            <Grid container spacing={2}>
+            <br/>
+            <Grid container spacing={6}>
               {this.state.sortedClassifieds.map((card) => (
-                <Grid item key={card._id} xs={4} sm={4} md={4}>
+                <Grid item key={card._id} xs={4}>
                   <Card style={card}>
                   <CardMedia >
                       <img src={card.imgURL} style={image} />
@@ -149,9 +152,10 @@ class Classifieds extends Component {
                         {card.title}
                       </Typography>
                       <Typography>
-                        {card.price} - {card.likes.length}
+                      R$ {card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/{card.measure}
                       </Typography>
                     </CardContent>
+                    <CardContent style={heart}><FavoriteIcon color="secondary" /> {card.likes.length}</CardContent>
                     <CardActions>
                       <Button size="small" color="primary">
                         <Link href={`/classifieds/details/${card._id}`}>
@@ -231,17 +235,20 @@ const cardMedia = {
 
 const cardContent = {
   flexGrow: 1,
+  padding: "2px"
 }
 
 const hr = {
   width: "300%",
   marginLeft: "40px"
-
 }
 
 const image = {
-  width: "50%",
-  height: "150px"
+  width: "65%",
+  height: "130px"
 }
 
+const heart = {
+  padding: "5px"
+}
 export default Classifieds
