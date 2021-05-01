@@ -251,7 +251,7 @@ class User extends Component {
                       {card.title}
                     </Typography>
                     <Typography>
-                      {card.price}
+                     R${card.price}/{card.measure}
                     </Typography>
                   </CardContent>
                   <CardActions>

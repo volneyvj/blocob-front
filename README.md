@@ -5,7 +5,7 @@
 [https://blocob.herokuapp.com/](https://blocob.herokuapp.com/)
 
 # Presentation Slides: 
-[https://slides.com/volneyfaustini/freestudent-fabio-h-e-volney-faustini](BlocoB Slides Presentation)
+[BlocoB Slides Presentation](https://slides.com/volneyfaustinifreestudent-fabio-h-e-volney-faustini)
 
 ## Features
 
