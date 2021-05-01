@@ -47,19 +47,15 @@ class CepEdit extends Component {
 
   handleInput = (event) => {
     const { name, value } = event.target;
-    var today = new Date();
-    var zipdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    
     this.setState({
       [name]: value,
-      lastZipCodeUpdate: zipdate,
     });
   };
 
   getNeighborhood = async () => {
     const cep = this.state.cep
     try {
-   let cepData =  await  axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+   let cepData =  await  axios.get(`http://viacep.com.br/ws/${cep}/json/`)
             this.setState({
             neighborhood: cepData.data.bairro,
             street: cepData.data.logradouro,
@@ -72,23 +68,28 @@ class CepEdit extends Component {
     }
 }
 
-  handleInputCEP = (event) => {
+ 
+  handleInputCEP = async (event) => {
+  try {
     if (isFinite(event.target.value)) {
-    // if (isNaN(Number(event.target.value))) {
-      this.setState({ cep: event.target.value });
-      this.getNeighborhood()
-    } else {
-        return;
-    }
+     await this.setState({ cep: event.target.value,
+       });
+   await this.getNeighborhood()
+  } else {
+    return;
+}
   }
-
-
+  catch (error) {
+    console.log("error")
+  }}
 
   handleSubmit = async (event) => {
     // const { email, cpf, username, password, name, lastName, cep, street, streetNumber, streetComplement, neighborhood, city, state, phone,
     //   mobile, birthDate, profession, imgURL, score, lastZipCodeUpdate, status } = this.state;
     event.preventDefault();
-    const user = await api.editCEP(this.state);
+    var today = new Date();
+    var zipdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const user = await api.editCEP(this.state, zipdate);
     this.setState({
       message: "CEP Editado",
     });
@@ -102,7 +103,7 @@ class CepEdit extends Component {
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div style={paper}>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h4">
               ALTERAR CEP 
         </Typography>
 
@@ -221,8 +222,10 @@ class CepEdit extends Component {
           </Button>
             </form>
         ) : (
-                <div>
-                <Typography>Você alterou seu CEP nos últimos 60 dias</Typography>
+                <div style={alterou}>
+                <br/>
+                <Typography variant="h5">Você alterou seu CEP nos últimos 30 dias.</Typography>
+                <Typography variant="h6">Por questões de segurança e veracidade das informaçòes, retorne mais tarde para atualização do endereço.</Typography>
                 </div>
         )
         }
@@ -240,6 +243,11 @@ const paper = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+}
+
+const alterou = {
+  height: "500px",
+  width: "300%"
 }
 
 const form = {

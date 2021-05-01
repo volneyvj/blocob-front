@@ -74,10 +74,9 @@ class Api {
     }
   };
 
-  editCEP = async (payload) => {
-    console.log(payload)
+  editCEP = async (payload, zipdate) => {
     try {
-      const { data } = await this.api.post("/user/editCEP", payload);
+      const { data } = await this.api.post("/user/editCEP", {data: payload, zipdate});
     } catch (error) {
       console.error(JSON.stringify(error.response.data));
       throw new Error(error);
