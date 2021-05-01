@@ -4,6 +4,9 @@
 # Deployed at: 
 [https://blocob.herokuapp.com/](https://blocob.herokuapp.com/)
 
+# Presentation Slides: 
+[https://slides.com/volneyfaustini/freestudent-fabio-h-e-volney-faustini](BlocoB Slides Presentation)
+
 ## Features
 
 - Add classifieds (product, service or social project)
