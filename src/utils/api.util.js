@@ -77,6 +77,8 @@ class Api {
   editCEP = async (payload, zipdate) => {
     try {
       const { data } = await this.api.post("/user/editCEP", {data: payload, zipdate});
+      const { neighborhood } = data;
+      localStorage.setItem("neighborhood", neighborhood);
     } catch (error) {
       console.error(JSON.stringify(error.response.data));
       throw new Error(error);

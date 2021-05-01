@@ -82,7 +82,9 @@ class Classifieds extends Component {
                 <Grid item key={card._id} xs={4}>
                   <Card style={card}>
                     <CardMedia >
+                    <Link href={`/classifieds/details/${card._id}`}>
                       <img src={card.imgURL} style={image} />
+                      </Link>
                     </CardMedia>
                     <CardContent style={cardContent}>
                       <Typography gutterBottom variant="h5" component="h2">
@@ -116,7 +118,7 @@ class Classifieds extends Component {
           <br />
         )}
 
-        <Grid container>
+        <Grid style={gridb} container>
           <Grid item>
 
             <Link href={`/userclassifieds`}>
@@ -133,6 +135,7 @@ class Classifieds extends Component {
             </Link>
           </Grid>
         </Grid>
+
         <p></p>
         <hr style={hr}></hr>
         {(this.state.userClassifieds.length !== 0) ? (
@@ -145,7 +148,9 @@ class Classifieds extends Component {
                 <Grid item key={card._id} xs={4}>
                   <Card style={card}>
                   <CardMedia >
+                  <Link href={`/classifieds/details/${card._id}`}>
                       <img src={card.imgURL} style={image} />
+                      </Link>
                     </CardMedia>
                     <CardContent style={cardContent}>
                       <Typography gutterBottom variant="h5" component="h2">
@@ -217,16 +222,20 @@ const buttom = {
   },
 }
 
+const gridb = {
+  paddingLeft: "40px"
+}
+
 const cardGrid = {
   paddingTop: "8px",
   paddingBottom: "28px",
-  backgroundColor: "#EEEDEB"
+  backgroundColor: "#EEEDEB",
+  width: "200%"
 }
 
 const card = {
   height: '100%',
   display: 'flex',
-  flexDirection: 'column',
 }
 
 const cardMedia = {
@@ -239,13 +248,15 @@ const cardContent = {
 }
 
 const hr = {
-  width: "300%",
+  width: "150%",
   marginLeft: "40px"
 }
 
 const image = {
   width: "65%",
-  height: "130px"
+  height: "130px",
+  borderRadius: "5%",
+  marginTop: "5px"
 }
 
 const heart = {

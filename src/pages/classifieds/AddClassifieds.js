@@ -181,6 +181,9 @@ class AddClassifieds extends Component {
                 value={this.state.description}
                 onChange={this.handleInput}
               />
+
+{this.state.category !== "Projeto" ? (
+  <>
               <TextField
                 type="number"
                 required
@@ -203,8 +206,10 @@ class AddClassifieds extends Component {
                 value={this.state.measure}
                 onChange={this.handleInput}
               />
-
-
+</>
+) : (
+<div></div>
+)}
 
               {this.state.category === "Projeto" ? (
                 <>
@@ -220,8 +225,8 @@ class AddClassifieds extends Component {
                   />
 
                   <TextField
-                    variant="outlined"
-                    margin="normal"
+                    
+                  
                     required
                     fullWidth
                     name="investment"
@@ -231,13 +236,11 @@ class AddClassifieds extends Component {
                     value={this.state.investment}
                     onChange={this.handleInput}
                   />
-                <label>Arquivo PDF +detalhes</label>
-              <input type='file' name="filePDF" id="filePDF" onChange={this.handleFile} />
+                {/* <label>Arquivo PDF +detalhes</label>
+              <input type='file' name="filePDF" id="filePDF" onChange={this.handleFile} /> */}
 
 
                   <TextField
-                    variant="outlined"
-                    margin="normal"
                     required
                     fullWidth
                     name="address"
@@ -249,8 +252,6 @@ class AddClassifieds extends Component {
                   />
 
                   <TextField
-                    variant="outlined"
-                    margin="normal"
                     required
                     fullWidth
                     name="desiredDate"
@@ -292,6 +293,11 @@ class AddClassifieds extends Component {
             </form>
           </div>
         </Container>
+
+        <div><p></p>
+          <Link href="/main">Voltar</Link>
+        </div>
+
       </div>
     );
   }
@@ -302,6 +308,7 @@ const paper = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  height: "560px"
 };
 
 const form = {

@@ -85,9 +85,9 @@ class UserClassifieds extends Component {
       
         </Container>
 ) : (
-<br/>
+<p/>
 )}
-<Typography variant="h5"><Link href={`/classifieds/add`}>Adicionar Novo Classificado </Link> </Typography>
+<Link href={`/classifieds/add`}><Button style={add}>Adicionar Novo Classificado </Button> </Link> 
       </div>
     )
   }
@@ -114,7 +114,16 @@ const cardContent = {
 
 const image = {
   width: "100px",
-  height: "120px"
+  height: "110px",
+  marginTop: "10px",
+  borderRadius: "5%"
+}
+
+const add = {
+    margin: "22px",
+    color: "white",
+    background: "#2A4654",
+    width: "25%",
 }
 
 export default UserClassifieds

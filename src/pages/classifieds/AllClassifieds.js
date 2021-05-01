@@ -142,7 +142,9 @@ const submit = {
 
 const image = {
   width: "100px",
-  height: "120px"
+  height: "110px",
+  marginTop: "10px",
+  borderRadius: "5%"
 }
 
 const heart = {

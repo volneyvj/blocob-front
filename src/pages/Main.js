@@ -81,7 +81,7 @@ class Main extends Component {
                  <hr></hr>
                     <div style={mainbuttons}>
                       <Grid container spacing={2}>
-                        <Grid item>
+                        <Grid style={gridb} item>
                         <Link href={`/users/useredit/${this.state.userid}`}>
                           <Button variant="contained" style={button}>
                               Editar Perfil
@@ -172,6 +172,10 @@ const main = {
   padding: "8px 0 6px",
   marginTop: "10px",
   fontFamily: 'Quicksand'
+}
+
+const gridb = {
+  paddingLeft: "40px"
 }
 
 const form = {

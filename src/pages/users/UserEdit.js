@@ -384,7 +384,9 @@ class UserEdit extends Component {
           </div>
         </Container>
 
-
+        <div><p></p>
+          <Link href="/main">Voltar</Link>
+        </div>
       </div>
     );
   }
