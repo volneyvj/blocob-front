@@ -55,7 +55,7 @@ class CepEdit extends Component {
   getNeighborhood = async () => {
     const cep = this.state.cep
     try {
-   let cepData =  await  axios.get(`http://viacep.com.br/ws/${cep}/json/`)
+   let cepData =  await  axios.get(`https://viacep.com.br/ws/${cep}/json/`)
             this.setState({
             neighborhood: cepData.data.bairro,
             street: cepData.data.logradouro,
